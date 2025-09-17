@@ -40,6 +40,8 @@ After the design is finalized, I will oversee the implementation phase, assign t
 9. AWS Lambda restricts limits up to 15 minutes per execution and up to 10GB memory / 6 vCPUs.
 10. Terraform automates infrastructure provisioning, with its scripts stored and version-controlled in AWS CodeCommit.
 
+[Back to Top](#table-of-contents)
+
 # Explanation on Architecture (End-to-End flow)
 
 ![view here](architecture_design.png)
@@ -85,6 +87,8 @@ After the design is finalized, I will oversee the implementation phase, assign t
 8. Maintenance
 	- Containerized processing code enables versioning and easy updates.
 	- AWS CodePipeline (CI/CD) → A fully managed service that automates continuous integration and continuous delivery, streamlining application and infrastructure updates.	
+
+[Back to Top](#table-of-contents)
 
 # AWS-managed services used in this solution
 
@@ -140,3 +144,5 @@ After the design is finalized, I will oversee the implementation phase, assign t
 	- Event-driven Lambda triggers
 	- Regional deployment reduces network latency.
 	- Redshift Serverless optimizes queries dynamically.	
+	
+[Back to Top](#table-of-contents)	
