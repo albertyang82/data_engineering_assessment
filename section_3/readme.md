@@ -71,15 +71,45 @@
 
 ## D. Security and Best Practices Addressed in this solution.
 
-| **Requirement**                  | **Solution** |
-|--------------------------------|---------------|
-| **Secure access**		|	**IAM roles & policies, least privilege, VPC for internal services|
-| **Data at rest**	|	**S3 SSE-KMS, DynamoDB encryption|
-| **Data in transit**	|	**TLS / HTTPS for API & Kafka connections|
-| **Scaling**	|	**Lambda auto-scaling, Fargate, S3, MSK multi-AZ|
-| **Maintenance**	|	**Containerized processing, version control, CI/CD|
-| **Manageability**	|	**CloudWatch logs, monitoring, alerts|
-| **High Availability**	|	**S3 durability, MSK multi-AZ, Lambda redundancy|
-| **Cost Efficiency**	|	**Serverless compute (Lambda), S3 storage class optimization|
-| **Fault Tolerant**	|	**Multi-AZ deployments, S3 replication optional|
-| **Low Latency**	|	**Direct S3 ingestion, event-driven Lambda triggers|
+1. Secure access
+	- IAM roles & policies enforces least-privilege access.
+	- AWS KMS encrypts S3, Redshift, and SageMaker data.
+	- AWS CloudTrail enables auditing.
+	- RBAC for Redshift and restricted access for QuickSight & SageMaker.
+
+2. Scaling
+	- AWS Lambda, DynamoDB, and SageMaker auto-scale on demand.
+	- Amazon MSK handles high-throughput workloads.
+	- Redshift Serverless adjusts resources dynamically.
+	
+3. Manageability
+	- Secure credentials via AWS Secrets Manager.
+	- Encryption keys managed by AWS KMS.
+	- Terraform used for IaC to ensure consistent provisioning.
+
+4. Maintenance 
+	- AWS CodePipeline automates CI/CD.
+	- Containerized processing
+	- Version control
+
+5.  High Availability (HA)
+	- MSK Multi-AZ deployment and Redshift Serverless.
+	- S3 durability and fault tolerance.
+	
+6. Cost Efficiency
+	- Serverless services minimize idle costs.
+	- S3 lifecycle policies optimize storage costs.
+	- Redshift Serverless and QuickSight pay-per-use pricing	
+	- S3 storage class optimization
+	
+7.  Fault Tolerance & Disaster Recovery (DR)
+	- MSK event replay and S3 versioning for recovery.
+	- DynamoDB PITR and Redshift snapshots enable rollback.	
+	- Multi-AZ deployments
+	- S3 replication optional
+	
+8. Low Latency
+	- Direct S3 ingestion.
+	- Event-driven Lambda triggers
+	- Regional deployment reduces network latency.
+	- Redshift Serverless optimizes queries dynamically.	
