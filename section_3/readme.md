@@ -1,6 +1,5 @@
 # Section3: Design 2 (Architecture Design)
 ---
-# My Project's README
 # Table of Contents
 - [Overview](#overview)
 - [Assumptions](#assumptions)
@@ -27,7 +26,7 @@ I ensure that the final design is well-documented and communicated to all releva
 **Implementation & Review**
 After the design is finalized, I will oversee the implementation phase, assign tasks to team members, track progress, and ensure the implementation adheres to the architectural design. I will facilitate regular code reviews and architectural reviews to catch any deviations or potential issues early on. I mentor and support my team members throughout the process.
 
-[Back to Top](#my-projects-readme)
+[Back to Top](#table-of-contents)
 
 # Assumptions
 1. Cloud provider: AWS. 
