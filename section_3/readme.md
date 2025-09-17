@@ -1,10 +1,14 @@
 # Section3: Design 2 (Architecture Design)
 ---
 
+![view here](architecture_design.png)
+
 ## A. Explanation on system flow and architecture
 1. API Gateway exposes the API, triggering Lambda (Lambda to upload files 1) to store image metadata in DynamoDB and save raw image files to the S3 raw images bucket.
 
 2. Amazon MSK (Kafka) receives messages, which are processed by Lambda (Lambda to upload files 2) to similarly store metadata in DynamoDB and upload raw images to the S3 raw images bucket.
+
+3. Amazon DynamoDB: Lambda functions triggered by API/MSK to process and store image metadata here.
 
 ## B. Assumptions
 - The system is built using AWS-managed services.
@@ -14,8 +18,6 @@
 - The system retains raw and processed images for up to 7 days to meet compliance requirements, so DynamoDB is used for storage. If long-term retention were required and cost were not a constraint, I would instead design the solution using Redshift.
 
 ## C. AWS-managed services used in this solution.
-
-![view here](architecture_design.png)
 
 ### IAM (Identity and Access Management)
 AWS’s service for securely managing users, groups, and permissions to control access to cloud resources.
