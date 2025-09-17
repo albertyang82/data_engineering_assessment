@@ -2,6 +2,7 @@
 ---
 
 # Table of Contents
+- [Introduction](#introduction)
 - [A. Overview](#overview)
 - [B. Assumptions](#assumptions)
   - [Sub-Topic A](#sub-topic-a)
@@ -11,6 +12,7 @@
 - [E. Security and Best Practices Addressed in this solution](#best-practises)
 
 # A. Overview
+# Introduction
 As a team lead, I will design cloud architecture focusing on strategic facilitator, guiding the team through the process of creating a solution that is scalable, secure, and cost-effective. Their primary responsibilities include defining the project's scope, coordinating the team's efforts, and ensuring the final design aligns with the organization's business goals and technical requirements.
 
 **Initial Planning & Requirements Gathering**
@@ -89,13 +91,13 @@ After the design is finalized, I will oversee the implementation phase, assign t
 
 # D. AWS-managed services used in this solution
 
-**Amazon API Gateway**: A fully managed service that enables developers to create, publish, secure, and monitor APIs at any scale.
-**Apache Kafka**: A distributed streaming platform that allows real-time publishing, storing, and processing of high-throughput event and message streams.
-**AWS Lambda**: A serverless compute service that runs code in response to events without requiring you to provision or manage servers.
-**Amazon DynamoDB**: A fully managed, serverless NoSQL database that provides fast and predictable performance with seamless scalability.
-**Amazon QuickSight**: A cloud-based business intelligence service that enables users to create interactive dashboards, visualizations, and insights from their data.
-**Amazon S3 (Simple Storage Service) bucket**: A scalable, durable cloud storage container used to store and retrieve objects such as files, images, and backups.
-**Amazon SageMaker**: A fully managed service that enables developers and data scientists to build, train, and deploy machine learning models at scale
+1. Amazon API Gateway: A fully managed service that enables developers to create, publish, secure, and monitor APIs at any scale.
+2. Apache Kafka: A distributed streaming platform that allows real-time publishing, storing, and processing of high-throughput event and message streams.
+3. AWS Lambda: A serverless compute service that runs code in response to events without requiring you to provision or manage servers.
+4. Amazon DynamoDB: A fully managed, serverless NoSQL database that provides fast and predictable performance with seamless scalability.
+5. Amazon QuickSight: A cloud-based business intelligence service that enables users to create interactive dashboards, visualizations, and insights from their data.
+6. Amazon S3 (Simple Storage Service) bucket: A scalable, durable cloud storage container used to store and retrieve objects such as files, images, and backups.
+7. Amazon SageMaker: A fully managed service that enables developers and data scientists to build, train, and deploy machine learning models at scale
 
 # E. Security and Best Practices Addressed in this solution
 
