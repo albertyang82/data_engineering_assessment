@@ -1,7 +1,35 @@
 # Section3: Design 2 (Architecture Design)
 ---
 
-## A. Assumptions
+# Table of Contents
+- [A. Overview](#overview)
+- [B. Assumptions](#assumptions)
+  - [Sub-Topic A](#sub-topic-a)
+  - [Sub-Topic B](#sub-topic-b)
+- [C. Explanation on Architecture (End-to-End flow)](#explanation-on-architecture-end-to-end-flow)
+- [D. AWS-managed services used in this solution](#services)
+- [E. Security and Best Practices Addressed in this solution](#best-practises)
+
+# A. Overview
+As a team lead, I will design cloud architecture focusing on strategic facilitator, guiding the team through the process of creating a solution that is scalable, secure, and cost-effective. Their primary responsibilities include defining the project's scope, coordinating the team's efforts, and ensuring the final design aligns with the organization's business goals and technical requirements.
+
+**Initial Planning & Requirements Gathering**
+I begin by clearly defining the project's goals. This involves working with stakeholders to understand the business needs, performance expectations, and any compliance or security constraints. I document these detailed requirements, as they will serve as the foundation for the entire design process. This is also where I will help the team to choose a cloud provider (like AWS, Azure, or Google Cloud) based on their specific features, pricing, and suitability for the project. The decision of which provider to use is a crucial early step that will influence the entire architecture.
+
+**Architectural Design & Decision Making**
+Once the requirements are set, I shifts to guiding the team through the actual design of the architecture. This involves several key decisions:
+- Service Selection: The team lead will facilitate discussions to choose the appropriate cloud services. This might include selecting services for compute (EC2, Lambda), storage (S3, EBS), databases (RDS, DynamoDB), and networking (VPC, Route 53). The team lead should encourage the team to explore various options and weigh their pros and cons.
+- Scalability & Resilience: I ensure the design incorporates principles of scalability and resilience. This means designing the system to handle increased load and to recover automatically from failures. I consider using features like auto-scaling groups and multi-region deployments to achieve this.
+- Security & Compliance: I ensure that security is baked into the architecture from the start, not added as an afterthought. This includes defining IAM policies, setting up network security groups, and implementing encryption for data at rest and in transit.
+- Cost Management: I guide the team in making cost-effective choices. This involves considering the pricing models of different services and designing an architecture that minimizes unnecessary costs without compromising performance or reliability.
+
+**Documentation & Communication**
+I ensure that the final design is well-documented and communicated to all relevant parties. This documentation should include detailed diagrams, a list of all services used, security policies, and an explanation of the design's rationale. I also responsible for presenting the architecture to stakeholders, getting their buy-in, and addressing any questions or concerns.
+
+**Implementation & Review**
+After the design is finalized, I will oversee the implementation phase, assign tasks to team members, track progress, and ensure the implementation adheres to the architectural design. I will facilitate regular code reviews and architectural reviews to catch any deviations or potential issues early on. I mentor and support my team members throughout the process.
+
+# B. Assumptions
 1. Cloud provider: AWS. 
 2. Images are uploaded either via web API or a Kafka stream managed internally.
 3. Image processing code is already written and can run in containers or serverless functions.
@@ -13,7 +41,7 @@
 9. AWS Lambda restricts limits up to 15 minutes per execution and up to 10GB memory / 6 vCPUs.
 10. Terraform automates infrastructure provisioning, with its scripts stored and version-controlled in AWS CodeCommit.
 
-## B. Explanation on Architecture (End-to-End flow)
+# C. Explanation on Architecture (End-to-End flow)
 
 ![view here](architecture_design.png)
 
@@ -59,7 +87,7 @@
 	- Containerized processing code enables versioning and easy updates.
 	- AWS CodePipeline (CI/CD) → A fully managed service that automates continuous integration and continuous delivery, streamlining application and infrastructure updates.	
 
-## C. AWS-managed services used in this solution.
+# D. AWS-managed services used in this solution
 
 **Amazon API Gateway**: A fully managed service that enables developers to create, publish, secure, and monitor APIs at any scale.
 **Apache Kafka**: A distributed streaming platform that allows real-time publishing, storing, and processing of high-throughput event and message streams.
@@ -69,7 +97,7 @@
 **Amazon S3 (Simple Storage Service) bucket**: A scalable, durable cloud storage container used to store and retrieve objects such as files, images, and backups.
 **Amazon SageMaker**: A fully managed service that enables developers and data scientists to build, train, and deploy machine learning models at scale
 
-## D. Security and Best Practices Addressed in this solution.
+# E. Security and Best Practices Addressed in this solution
 
 1. Secure access
 	- IAM roles & policies enforces least-privilege access.
