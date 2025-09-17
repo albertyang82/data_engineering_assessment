@@ -1,8 +1,7 @@
 # Section3: Design 2 (Architecture Design)
 ---
-
+# My Project's README
 # Table of Contents
-- [Introduction](#introduction)
 - [Overview](#overview)
 - [Assumptions](#assumptions)
 - [Explanation on Architecture (End-to-End flow)](#explanation-on-architecture-end-to-end-flow)
@@ -10,7 +9,6 @@
 - [Security and Best Practices Addressed in this solution](#best-practises)
 
 # Overview
-# Introduction
 As a team lead, I will design cloud architecture focusing on strategic facilitator, guiding the team through the process of creating a solution that is scalable, secure, and cost-effective. Their primary responsibilities include defining the project's scope, coordinating the team's efforts, and ensuring the final design aligns with the organization's business goals and technical requirements.
 
 **Initial Planning & Requirements Gathering**
@@ -29,6 +27,8 @@ I ensure that the final design is well-documented and communicated to all releva
 **Implementation & Review**
 After the design is finalized, I will oversee the implementation phase, assign tasks to team members, track progress, and ensure the implementation adheres to the architectural design. I will facilitate regular code reviews and architectural reviews to catch any deviations or potential issues early on. I mentor and support my team members throughout the process.
 
+[Back to Top](#my-projects-readme)
+
 # Assumptions
 1. Cloud provider: AWS. 
 2. Images are uploaded either via web API or a Kafka stream managed internally.
@@ -41,7 +41,7 @@ After the design is finalized, I will oversee the implementation phase, assign t
 9. AWS Lambda restricts limits up to 15 minutes per execution and up to 10GB memory / 6 vCPUs.
 10. Terraform automates infrastructure provisioning, with its scripts stored and version-controlled in AWS CodeCommit.
 
-# C. Explanation on Architecture (End-to-End flow)
+# Explanation on Architecture (End-to-End flow)
 
 ![view here](architecture_design.png)
 
@@ -87,7 +87,7 @@ After the design is finalized, I will oversee the implementation phase, assign t
 	- Containerized processing code enables versioning and easy updates.
 	- AWS CodePipeline (CI/CD) → A fully managed service that automates continuous integration and continuous delivery, streamlining application and infrastructure updates.	
 
-# D. AWS-managed services used in this solution
+# AWS-managed services used in this solution
 
 1. Amazon API Gateway: A fully managed service that enables developers to create, publish, secure, and monitor APIs at any scale.
 2. Apache Kafka: A distributed streaming platform that allows real-time publishing, storing, and processing of high-throughput event and message streams.
