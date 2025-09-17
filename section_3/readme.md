@@ -3,15 +3,13 @@
 
 # Table of Contents
 - [Introduction](#introduction)
-- [A. Overview](#overview)
-- [B. Assumptions](#assumptions)
-  - [Sub-Topic A](#sub-topic-a)
-  - [Sub-Topic B](#sub-topic-b)
-- [C. Explanation on Architecture (End-to-End flow)](#explanation-on-architecture-end-to-end-flow)
-- [D. AWS-managed services used in this solution](#services)
-- [E. Security and Best Practices Addressed in this solution](#best-practises)
+- [Overview](#overview)
+- [Assumptions](#assumptions)
+- [Explanation on Architecture (End-to-End flow)](#explanation-on-architecture-end-to-end-flow)
+- [AWS-managed services used in this solution](#services)
+- [Security and Best Practices Addressed in this solution](#best-practises)
 
-# A. Overview
+# Overview
 # Introduction
 As a team lead, I will design cloud architecture focusing on strategic facilitator, guiding the team through the process of creating a solution that is scalable, secure, and cost-effective. Their primary responsibilities include defining the project's scope, coordinating the team's efforts, and ensuring the final design aligns with the organization's business goals and technical requirements.
 
@@ -31,7 +29,7 @@ I ensure that the final design is well-documented and communicated to all releva
 **Implementation & Review**
 After the design is finalized, I will oversee the implementation phase, assign tasks to team members, track progress, and ensure the implementation adheres to the architectural design. I will facilitate regular code reviews and architectural reviews to catch any deviations or potential issues early on. I mentor and support my team members throughout the process.
 
-# B. Assumptions
+# Assumptions
 1. Cloud provider: AWS. 
 2. Images are uploaded either via web API or a Kafka stream managed internally.
 3. Image processing code is already written and can run in containers or serverless functions.
