@@ -1,21 +1,36 @@
 # Section3: Design 2 (Architecture Design)
 ---
 
+## A. Assumptions
+1. Cloud provider: AWS. 
+2. Images are uploaded either via web API or a Kafka stream managed internally.
+3. Image processing code is already written and can run in containers or serverless functions.
+4. The system retains raw and processed images for up to 7 days to meet compliance requirements then automatically deleted, so DynamoDB is used for storage. If long-term retention were required and cost were not a constraint, I would instead design the solution using Redshift.
+5. Business Intelligence tools require queryable storage (e.g. analytics database or data warehouse).
+6. Users and analysts access the environment securely via IAM, SSO, or VPC endpoints.
+7. Traffic is moderate to high; need auto-scaling and cost-efficient storage.
+8. The client application restricts image uploads up to 10MB, aligning with API Gateway's payload limit.
+9. AWS Lambda restricts limits up to 15 minutes per execution and up to 10GB memory / 6 vCPUs.
+10. Terraform automates infrastructure provisioning, with its scripts stored and version-controlled in AWS CodeCommit.
+
+
 ![view here](architecture_design.png)
 
-## A. Explanation on system flow and architecture
-1. API Gateway exposes the API, triggering Lambda (Lambda to upload files 1) to store image metadata in DynamoDB and save raw image files to the S3 raw images bucket.
+## B. Explanation on Architecture (End-to-End flow)
+1. Image Ingestion from API-based uploads (from web app)
 
-2. Amazon MSK (Kafka) receives messages, which are processed by Lambda (Lambda to upload files 2) to similarly store metadata in DynamoDB and upload raw images to the S3 raw images bucket.
+- Amazon API Gateway: Exposes REST API securely.
+- AWS Lambda (Upload Handler): Validates image, stores metadata in DynamoDB.
+- Amazon S3 (Raw Image Bucket): Stores uploaded images temporarily.
 
-3. Amazon DynamoDB: Lambda functions triggered by API/MSK to process and store image metadata here.
+2. Image processing from Kafka-based uploads
 
-## B. Assumptions
-- The system is built using AWS-managed services.
-- The client application restricts image uploads up to 10MB, aligning with API Gateway's payload limit.
-- AWS Lambda restricts limits up to 15 minutes per execution and up to 10GB memory / 6 vCPUs.
-- Terraform automates infrastructure provisioning, with its scripts stored and version-controlled in AWS CodeCommit.
-- The system retains raw and processed images for up to 7 days to meet compliance requirements, so DynamoDB is used for storage. If long-term retention were required and cost were not a constraint, I would instead design the solution using Redshift.
+- Amazon MSK (Managed Kafka): Hosts the company’s Kafka topics.
+- AWS Lambda (Kafka Consumer): Reads messages, uploads image to S3, writes metadata to DynamoDB.
+
+
+
+
 
 ## C. AWS-managed services used in this solution.
 
