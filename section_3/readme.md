@@ -2,5 +2,6 @@
 ---
 ## 1. Proposed AWS Architecture
 
-![view here](design2.drawio)
+![view here](architecture_design.png)
+
 
