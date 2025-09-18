@@ -63,7 +63,8 @@ docker-compose up -d --build
 ### 4. Table descriptions are indicated accordingly.
 ### 5. Column descriptions are indicated accordingly.
 
-## Solution - Top 10 members by spending
+# Analyst Queries
+## Q1. Top 10 members by spending
 ~~~~sql
 --Which are the top 3 items that are frequently brought by members ?
 --We need to count total quantity purchased for each item across all transactions:
@@ -80,7 +81,7 @@ LIMIT 3;
 --Order descending and take the top 3 most frequently purchased items.
 ~~~~
 
-## Solution - Top 3 items that are frequently bought by members
+## Q2. Top 3 items that are frequently bought by members
 ~~~~sql
 -- Which are the top 10 members by spending ?
 -- We need to sum the total_price of all transactions per member and order by spending descending:
