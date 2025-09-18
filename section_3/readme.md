@@ -1,3 +1,43 @@
+# Section3: Design 1
+---
+1. Logistics Team
+- View sales details (esp. total_weight of items bought).
+- Update transaction status when deliveries are completed.
+
+Implementation:
+~~~sql
+GRANT SELECT ON "ASSESSMENT"."TB_MEMBERSHIP", "ASSESSMENT"."TB_ITEM", "ASSESSMENT"."TB_TRANSACTION", "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING" TO "TEAM_LOGISTICS";
+GRANT UPDATE ("STATUS_CD") ON "ASSESSMENT"."TB_MEMBERSHIP" TO "TEAM_LOGISTICS";
+~~~
+
+2. Analytics Team
+- Perform read-only analysis on sales and membership status.
+- No ability to update or delete.
+
+Implementation:
+~~~sql
+GRANT SELECT ON "ASSESSMENT"."TB_MEMBERSHIP", "ASSESSMENT"."TB_ITEM", "ASSESSMENT"."TB_ITEM", "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING" TO "TEAM_ANALYTICS";
+~~~
+
+3. Sales Team
+- Insert new items into the catalog.
+- Remove old items no longer sold.
+
+Implementation:
+~~~sql
+GRANT SELECT, INSERT, UPDATE, DELETE ON "ASSESSMENT"."TB_ITEM" TO "TEAM_SALES";
+~~~
+
+Summary (Role → Permissions)
+- Logistics team → SELECT transactions, UPDATE status only.
+- Analytics team → SELECT only via views (view_member_sales_summary, etc.).
+- Sales team → INSERT, DELETE, UPDATE on items.
+
+This approach:
+- Protects raw data integrity.
+- Gives each team just enough permissions to do their jobs.
+- Provides views for Analytics so they don’t need direct table access.
+
 # Section3: Design 2 (Architecture Design)
 ---
 # Table of Contents
