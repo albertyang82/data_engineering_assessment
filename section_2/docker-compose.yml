@@ -1,0 +1,15 @@
+services:
+  db:
+    build: .
+    container_name: container_assessment
+    image: image_assessment
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: ASSESSMENT
+    ports:
+      - "5433:5432"
+
+volumes:
+  pgdata:
