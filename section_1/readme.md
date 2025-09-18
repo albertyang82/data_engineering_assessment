@@ -28,9 +28,8 @@ The core of this solution is a Python script (section_1.ipynb) that reads, proce
 	- Failed files: output/fail/<original_input_file>_fail_YYYYMMDDHHMISS
 
 After a file is processed, it is automatically moved to the archive folder. This ensures the pipeline only processes new files dropped into the input folder.
----
 
-**EventBridge Scheduling**
+**EventBridge Scheduling**  
 The pipeline is scheduled to run hourly using AWS EventBridge. You can set this up with the following steps:
 1. Navigate to EventBridge > Scheduler > Schedules and click "Create schedule".
 2. Provide a schedule name, such as section_1.
