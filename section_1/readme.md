@@ -29,6 +29,8 @@ The core of this solution is a Python script (section_1.ipynb) that reads, proce
 
 After a file is processed, it is automatically moved to the archive folder. This ensures the pipeline only processes new files dropped into the input folder.
 
+Furthermore, I have added a "Reject Reason" column to the rejected file to explain why each item was rejected.
+
 <ins>**EventBridge Scheduling**</ins>  
 The pipeline is scheduled to run hourly using AWS EventBridge. You can set this up with the following steps:
 1. Navigate to EventBridge > Scheduler > Schedules and click "Create schedule".
