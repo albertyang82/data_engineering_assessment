@@ -12,9 +12,9 @@ This document outlines the setup and function of a data pipeline. It describes h
 [Back to Top](#table-of-contents)
 
 # Assumptions
-1. **Software:** This solution requires Python and Jupyter Notebook. You'll need to install Python, the pandas library (pip install pandas), and Jupyter Notebook.
-2. **Hosting:** The pipeline is designed to be hosted on Amazon Web Services (AWS), using EventBridge for scheduling.
-3. **File Structure:** The solution relies on a specific folder structure:
+1. <u>**Software:**</u> This solution requires Python and Jupyter Notebook. You'll need to install Python, the pandas library (pip install pandas), and Jupyter Notebook.
+2. <u>**Hosting:**</u> The pipeline is designed to be hosted on Amazon Web Services (AWS), using EventBridge for scheduling.
+3. <u>**File Structure:**</u> The solution relies on a specific folder structure:
 	- input/: For source files awaiting processing.
 	- output/success/: For successfully processed files.
 	- output/fail/: For files that failed processing.
@@ -29,7 +29,7 @@ The core of this solution is a Python script (section_1.ipynb) that reads, proce
 
 After a file is processed, it is automatically moved to the archive folder. This ensures the pipeline only processes new files dropped into the input folder.
 
-**EventBridge Scheduling**  
+<u>**EventBridge Scheduling**</u> 
 The pipeline is scheduled to run hourly using AWS EventBridge. You can set this up with the following steps:
 1. Navigate to EventBridge > Scheduler > Schedules and click "Create schedule".
 2. Provide a schedule name, such as section_1.
