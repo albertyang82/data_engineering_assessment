@@ -15,8 +15,31 @@ git push origin main
 
 ---
 
-# Questions
+# Questions (for reference only)
 
+# Data Engineer (II) Tech Challenge
+---
+This test is split into 3 sections:
+1. Data Pipelines
+2. Databases 
+3. System Design
+
+---
+## Submission Guidelines
+Please create a GitHub repository containing your submission and send us an email containing a link to the repository. Ensure that the repository is marked as `Private`, and grant access to the users provided to you separately.
+
+Dos:
+- Frequent commits
+- Descriptive commit messages
+- Clear documentation
+- Comments in your code
+
+Don't:
+- Only one commit containing all the files
+- Submitting a zip file
+- Sparse or absent documentation
+- Code which is hard to read
+---
 ## Section1: Data Pipelines
 An e-commerce company requires that users sign up for a membership on the website in order to purchase a product from the platform. As a data engineer under this company, you are tasked with designing and implementing a pipeline to process the membership applications submitted by users on an hourly interval.
 
