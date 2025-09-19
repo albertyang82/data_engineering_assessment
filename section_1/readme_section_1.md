@@ -2,16 +2,16 @@
 ---
 
 # Table of Contents
-- [Overview](#overview)
-- [Assumptions](#assumptions)
-- [Solution](#solution)
+A. [Overview](#a-overview)
+B. [Assumptions](#b-assumptions)
+C. [Solution](#c-solution)
 
-# Overview
+# A. Overview
 This document outlines the setup and function of a data pipeline. It describes how the pipeline processes input files, cleanses the data, and then sorts the resulting records into "successful" and "failed" categories, which are then stored in designated output folders
 
 [Back to Top](#table-of-contents)
 
-# Assumptions
+# B. Assumptions
 1. <ins>**Software:**</ins> This solution requires Python and Jupyter Notebook. You'll need to install Python, the pandas library (pip install pandas), and Jupyter Notebook.
 2. <ins>**Hosting:**</ins> The pipeline is designed to be hosted on Amazon Web Services (AWS), using EventBridge for scheduling.
 3. <ins>**File Structure:**</ins> The solution relies on a specific folder structure:
@@ -22,7 +22,7 @@ This document outlines the setup and function of a data pipeline. It describes h
 	
 [Back to Top](#table-of-contents)	
 
-# Solution
+# C. Solution
 The core of this solution is a Python script (section_1.ipynb) that reads, processes, and cleanses the input files. The output files are saved with a timestamp (YYYYMMDDHHMISS) appended to their names to prevent overwriting. For example:
 	- Successful files: output/success/<original_input_file>_success_YYYYMMDDHHMISS
 	- Failed files: output/fail/<original_input_file>_fail_YYYYMMDDHHMISS
