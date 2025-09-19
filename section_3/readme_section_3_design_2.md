@@ -138,7 +138,6 @@ A phased rollout with clear owners, QA gates, and automation:
 - Add provisioning for autoscaling policies (queue-based).
 
 <ins>**Phase 4 — Analytics & BI (1–2 weeks)**</ins>
-- Catalog S3 datasets with Glue or native metadata store.
 - Connect BI tool and create sample dashboards.
 
 <ins>**Phase 5 — Security, Testing, & Release (1–2 weeks)**</ins>
@@ -152,9 +151,9 @@ A phased rollout with clear owners, QA gates, and automation:
 
 # 5. Suggested Roles and Ownership
 - Platform / Infra Lead: IaC, VPC, KMS, storage lifecycle rules.
-- Kafka Engineers: Manage Kafka topics, connectors, security.
-- Processing Team: Containerize and maintain processing code, CI/CD.
-- Data/Analytics: Glue catalog, dataset schemas, BI dashboards.
+- Engineers: Manage data transfer scripting.
+- DevOps: Containerize and maintain processing code, CI/CD.
+- Business users: BI dashboards and SageMaker.
 - Security/Compliance: IAM policies, audit review, retention enforcement.
 
 [Back to Top](#table-of-contents)
