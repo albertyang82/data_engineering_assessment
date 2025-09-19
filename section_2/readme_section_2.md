@@ -3,12 +3,12 @@
 
 # Overview
 This section covers the following deliverables:
-- [Membership Application Pipeline](#membership_application_pipeline)
+- [Membership](#membership)
 - [Database Design with Entity Relationship Diagram](#database_design_with_entity_relationship_diagram)
 - [Dockerfile setup and PostgreSQL DDL statements](#dockerfile_setup_and_postgresql_ddl_statements)
 - [Addressing Analyst Queries](#addressing_analyst_queries)
 
-# Membership Application Pipeline
+# Membership
 Flow:
 1. Applications submitted → dropped into a cloud storage/input folder (e.g., input/).
 2. Processing job using Python:
@@ -25,6 +25,8 @@ Flow:
 
 This ensures clean lineage and referenceability.
 
+[Back to Top](#overview)
+
 # Database Design with Entity Relationship Diagram
 
 We need to design memberships, items, transactions, and transaction details.
@@ -36,6 +38,8 @@ We need to design memberships, items, transactions, and transaction details.
 ![view here](ERD.png)
 
 Refer to init.sql for DDL and Test data.
+
+[Back to Top](#overview)
 
 # Dockerfile setup and PostgreSQL DDL statements
 1. Install tool: Docker Desktop
@@ -54,6 +58,7 @@ docker-compose up -d --build
 8. Go to pgAdmin. Right click on server - register, in order to setup the database.
 9. Verify the database is up and running by expanding the database which was just created.
 
+[Back to Top](#overview)
 
 ## Applying data standard and guidelines
 ### 1. All the columns are harmonized with appended with classword as suffix:
@@ -109,3 +114,5 @@ LIMIT 10;
 
 ## Next
 Automate the data harmonization (i.e. logical modeling and physical modeling) for every new tables brought in to the system.
+
+[Back to Top](#overview)
