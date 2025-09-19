@@ -2,9 +2,9 @@
 ---
 
 # Table of Contents
-A. [Overview](#a-overview)
-B. [Assumptions](#b-assumptions)
-C. [Solution](#c-solution)
+A. [Overview](#a-overview)  
+B. [Assumptions](#b-assumptions)  
+C. [Solution](#c-solution)  
 
 # A. Overview
 This document outlines the setup and function of a data pipeline. It describes how the pipeline processes input files, cleanses the data, and then sorts the resulting records into "successful" and "failed" categories, which are then stored in designated output folders
