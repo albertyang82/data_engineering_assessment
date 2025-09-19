@@ -2,13 +2,50 @@
 ---
 
 # Overview
-This section covers the following deliverables:
-1. [Membership Application Pipeline](#1-membership-application-pipeline)
-2. [Database Design with Entity Relationship Diagram](#2-database-design-with-entity-relationship-diagram)
-3. [Dockerfile setup and PostgreSQL DDL statements](#3-dockerfile-setup-and-postgresql-ddl-statements)
-4. [Addressing Analyst Queries](#4-addressing-analyst-queries)
 
-# 1. Membership Application Pipeline
+This section covers the following deliverables:
+1. [Architecting and implementing data pipeline and database](#1-architecting-and-implementing-data-pipeline-and-database)
+2. [Membership Application Pipeline](#2-membership-application-pipeline)
+3. [Database Design with Entity Relationship Diagram](#3-database-design-with-entity-relationship-diagram)
+4. [Dockerfile setup and PostgreSQL DDL statements](#4-dockerfile-setup-and-postgresql-ddl-statements)
+5. [Addressing Analyst Queries](#5-addressing-analyst-queries)
+
+# 1. Architecting and implementing data pipeline and database
+Being a tech lead goes far beyond just writing DDL and setting up pipelines. It’s about shaping the architecture, practices, and people around the project so that the system is reliable, maintainable, and scalable.
+
+Here’s what else I’d do as the technical lead in this scenario:
+1. Setup data architecture and design
+	- End-to-End Data Flow: Document the ingestion → validation → storage → analytics pipeline clearly so engineers and analysts know where their data comes from.
+	- Analyse and decide on Cloud-native Design: Leverage managed services. In this case, AWS.
+	- Ensure Security & Compliance: Ensure data encryption, PII masking (emails, birthdays), and access control for sensitive membership data.
+	- Ensure Scalability: Design the pipeline and DB schema for growth (millions of transactions, thousands of items).
+	
+2. Adopt data engineering best practices
+	- Setup coding standards: Define conventions for validation, logging, and error handling in the pipeline code.
+	- Setup testing strategy: Require unit tests for validation rules, integration tests for pipeline, SQL query correctness checks.
+	- Setup CI/CD: Automate build/deploy of pipelines and DB migrations (e.g., GitHub Actions + Flyway/Migrate).
+	- Setup Monitoring & Alerts: Set up metrics (failed applications, rejected rows, DB query performance) and alerting in case of anomalies.
+
+3. Database & Data Modeling
+	- Indexes: Add indexes on membership_id, item_id, and transaction_id for performance.
+	- Partitioning: Consider partitioning transactions table by month if transaction volume is very high.
+	- Audit Logging: Keep history of rejected membership applications for compliance and analytics.
+	- Data Dictionary: Provide analysts with clear documentation of tables, fields, and sample queries.	
+	
+4. Team and Cross-Function Collaboration
+	- With Software Engineers: Align membership pipeline output format with application’s expectations.
+	- With Analysts: Gather more sample queries.
+	- With Product Managers: Clarify requirements (e.g., do we need to track item returns, refunds, or order cancellations?).
+	- Do mentorship: Help junior engineers understand trade-offs (denormalization vs normalization, batch vs streaming).
+	
+5. Future-Proofing
+	- Data Warehouse: Plan integration with a warehouse (e.g., BigQuery, Snowflake, Redshift) for analytics at scale.
+	
+In short: as a techical lead, I wouldn’t just “build the pipeline and database” — I’d set up processes, architecture, and practices so the system remains healthy, secure, and useful for years
+
+[Back to Top](#overview)
+
+# 2. Membership Application Pipeline
 Recap of Section 1:
 1. Applications submitted and dropped the file into a cloud storage/input folder (e.g., input/) for processing.
 2. Engineers already implemented following logics using Python:
@@ -27,7 +64,7 @@ This ensures clean lineage and referenceability.
 
 [Back to Top](#overview)
 
-# 2. Database Design with Entity Relationship Diagram
+# 3. Database Design with Entity Relationship Diagram
 
 We need to design memberships, items, transactions, and transaction details.
 1. TB_MEMBERSHIP: created from successful applications.
@@ -44,7 +81,7 @@ Refer to init.sql for DDL and Test data.
 
 [Back to Top](#overview)
 
-# 3. Dockerfile setup and PostgreSQL DDL statements
+# 4. Dockerfile setup and PostgreSQL DDL statements
 1. Install tool: Docker Desktop
 2. Install tool: pgAdmin 4
 3. Create the following files:
@@ -107,7 +144,7 @@ docker-compose up -d --build
 4. Table descriptions are indicated accordingly for future reference.
 5. Column descriptions are indicated accordingly for future reference.
 
-# 4. Addressing Analyst Queries
+# 5. Addressing Analyst Queries
 ## Q1. Top 3 items that are frequently bought by members
 ~~~~sql
 --Which are the top 3 items that are frequently brought by members ?
