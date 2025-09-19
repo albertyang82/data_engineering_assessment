@@ -16,30 +16,6 @@ I, as technical lead, design a database access strategy that satisfies different
 | Analytics | `ROLE_ANALYTICS` | - Analyze sales, items, and membership data                     | SELECT on all tables (read-only)                                           |
 | Sales     | `ROLE_SALES`     | - Add new items<br>- Remove old items                           | INSERT/DELETE/UPDATE on `items`                                            |
 
-
-1. Logistics Team
-~~~sql
--- Allow Logistics to SELECT transactions and transaction_items
-GRANT SELECT ON "ASSESSMENT"."TB_TRANSACTION", "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING", "ASSESSMENT"."TB_ITEM" TO "ROLE_LOGISTICS";
-
--- Allow Logistics to UPDATE transactions (e.g., mark completed)
-GRANT UPDATE ON "ASSESSMENT"."TB_TRANSACTION" TO "ROLE_LOGISTICS";
-~~~
-
-2. Analytics Team
-~~~sql
--- Read-only access to all tables
-GRANT SELECT ON "ASSESSMENT"."TB_MEMBERSHIP", "ASSESSMENT"."TB_ITEM", "ASSESSMENT"."TB_TRANSACTION", "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING", "ASSESSMENT"."TB_REJECTED_APPLICATION" TO "ROLE_ANALYTICS";
-~~~
-
-3. Sales Team
-~~~sql
--- Manage items
-GRANT INSERT, UPDATE, DELETE ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
--- Optionally: SELECT access to see items
-GRANT SELECT ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
-~~~
-
 This approach:
 - Protects raw data integrity.
 - Gives each team just enough permissions to do their jobs.
