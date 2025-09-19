@@ -1,6 +1,6 @@
 ## There are 3 sections, according to the assessment questions, in this repository.
 
-## Please refer to readme_section_<n>.md in each section for the explanation respectively.
+## Please refer to readme_section_X.md in each section for the explanation respectively.
 
 #### Pre-requisite:
 1. Install git
