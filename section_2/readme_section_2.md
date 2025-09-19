@@ -36,9 +36,11 @@ We need to design memberships, items, transactions, and transaction details.
 4. TB_TRANSACTION_ITEM_MAPPING: mapping table that captures items within each transaction (many-to-many relationship).
 5. TB_REJECTED_APPLICATION: provides analysts with a dedicated record of all rejected applications. This eliminates the need for them to access S3, which may have restricted access for cloud administrators, thereby streamlining the analysis of rejection reasons.
 
+Refer to init.sql for DDL and Test data.
+
+
 ![view here](ERD.png)
 
-Refer to init.sql for DDL and Test data.
 
 [Back to Top](#overview)
 
