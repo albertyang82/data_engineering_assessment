@@ -12,7 +12,7 @@
 9. [Security and Best Practices Addressed in this solution](#9-security-and-best-practices-addressed-in-this-solution)  
 
 # 1. Overview
-I, as a team lead, will design cloud architecture focusing on strategic facilitator, guiding the team through the process of creating a solution that is scalable, secure, and cost-effective. My primary responsibilities include defining the project's scope, coordinating the team's efforts, and ensuring the final design aligns with the organization's business goals and technical requirements.
+I, as a technical lead, will design cloud architecture focusing on strategic facilitator, guiding the team through the process of creating a solution that is scalable, secure, and cost-effective. My primary responsibilities include defining the project's scope, coordinating the team's efforts, and ensuring the final design aligns with the organization's business goals and technical requirements.
 
 I propose a secure, scalable, and cost-efficient cloud architecture for ingesting and processing images from two sources (web/API uploads and an engineer-managed Kafka stream). The solution stores images and metadata for 7 days, after which they are automatically purged to meet compliance and privacy requirements. Processed metadata is available to BI and analytics tools for near-real-time insights. The design emphasizes least privilege access, encryption in transit and at rest, autoscaling processing, and operational observability.
 
@@ -37,7 +37,7 @@ After the design is finalized, I will oversee the implementation phase, assign t
 # 2. Assumptions
 1. Cloud provider: AWS. 
 2. Images are uploaded either via web API or a Kafka stream managed internally.
-3. Image processing code is already written and can run in containers or serverless functions.
+3. Web application programs have been developed.
 4. The system retains raw and processed images for up to 7 days to meet compliance requirements then automatically deleted, so DynamoDB is used for storage. If long-term retention were required and cost were not a constraint, I would instead design the solution using Redshift.
 5. Business Intelligence tools require queryable storage (e.g. analytics database or data warehouse).
 6. Users and analysts access the environment securely via IAM, SSO, or VPC endpoints.
