@@ -87,8 +87,11 @@ After the design is finalized, I will oversee the implementation phase, assign t
 ![view here](architecture_design.png)
 
 1. Image Ingestion from API-based uploads (from web app)
-	- Amazon API Gateway: Exposes REST API securely.
-	- AWS Lambda (Upload Handler): Validates image, stores metadata in DynamoDB.
+	- Amazon API Gateway:
+		- API Gateway as a secure entry point: This is its primary function—it acts as the "front door" for your API resources.
+		- Default payload limit is 10MB: AWS documentation confirms that the maximum payload size for requests sent through API Gateway (both REST and HTTP APIs) is a hard limit of 10 MB.
+		- Direct upload feasibility: Since the client-side file is limited to 10MB, it meets the exact payload limit of the API Gateway, meaning a direct upload is technically feasible without requiring workarounds like using S3 pre-signed URLs.
+	- AWS Lambda (Upload Handler): Validates image, stores metadata in DynamoDB. AWS Lambda function acts as a secure intermediary. Instead of handling the image data directly, which can be inefficient, it generates a pre-signed URL for an Amazon S3 bucket. This URL lets the client bypass API Gateway and Lambda's payload limits by securely uploading the image directly to S3, which is considered a best practice.
 	- Amazon S3 (Raw Image Bucket): Stores uploaded images temporarily.
 
 2. Image processing from Kafka-based uploads
@@ -126,7 +129,10 @@ After the design is finalized, I will oversee the implementation phase, assign t
 
 8. Maintenance
 	- Containerized processing code enables versioning and easy updates.
-	- AWS CodePipeline (CI/CD) → A fully managed service that automates continuous integration and continuous delivery, streamlining application and infrastructure updates.	
+	- AWS CodePipeline (CI/CD) → A fully managed service that automates continuous integration and continuous delivery, streamlining application and infrastructure updates.
+
+9. Infrastructure provisioning	
+	- Terraform automates infrastructure provisioning, with its scripts stored and version-controlled in AWS CodeCommit.
 
 [Back to Top](#table-of-contents)
 
