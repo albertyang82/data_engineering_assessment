@@ -96,16 +96,16 @@ docker-compose up -d --build
 [Back to Top](#overview)
 
 ## Applying data standard and guidelines
-### 1. All the columns are harmonized with appended with classword as suffix:
+1. All the columns are harmonized with appended with classword as suffix:
 - _NO is for number.
 - _TXT is for text field.
 - _IND is for indicator / 2 values field.
 - _CD is for code values / fields with more than 2 possible values.
 			
-### 2. All the tables are harmonized with prefix: TB_, which represents base table.
-### 3. Primary key and foreign keys are indicated accordingly.
-### 4. Table descriptions are indicated accordingly.
-### 5. Column descriptions are indicated accordingly.
+2. All the tables are harmonized with prefix: TB_, which represents base table.
+3. Primary key and foreign keys are indicated accordingly.
+4. Table descriptions are indicated accordingly for future reference.
+5. Column descriptions are indicated accordingly for future reference.
 
 # 4. Addressing Analyst Queries
 ## Q1. Top 3 items that are frequently bought by members
