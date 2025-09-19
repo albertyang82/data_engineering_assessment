@@ -3,12 +3,12 @@
 
 # Overview
 This section covers the following deliverables:
-- [Membership Application Pipeline](#membership-application-pipeline)
-- [Database Design with Entity Relationship Diagram](#database-design-with-entity-relationship-diagram)
-- [Dockerfile setup and PostgreSQL DDL statements](#dockerfile-setup-and-postgresql-ddl-statements)
-- [Addressing Analyst Queries](#addressing-analyst-queries)
+1. [Membership Application Pipeline](#1-membership-application-pipeline)
+2. [Database Design with Entity Relationship Diagram](#2-database-design-with-entity-relationship-diagram)
+3. [Dockerfile setup and PostgreSQL DDL statements](#3-dockerfile-setup-and-postgresql-ddl-statements)
+4. [Addressing Analyst Queries](#4-addressing-analyst-queries)
 
-# Membership Application Pipeline
+# 1. Membership Application Pipeline
 Recap of Section 1:
 1. Applications submitted and dropped the file into a cloud storage/input folder (e.g., input/) for processing.
 2. Engineers already implemented following logics using Python:
@@ -27,7 +27,7 @@ This ensures clean lineage and referenceability.
 
 [Back to Top](#overview)
 
-# Database Design with Entity Relationship Diagram
+# 2. Database Design with Entity Relationship Diagram
 
 We need to design memberships, items, transactions, and transaction details.
 1. TB_MEMBERSHIP: created from successful applications.
@@ -44,7 +44,7 @@ Refer to init.sql for DDL and Test data.
 
 [Back to Top](#overview)
 
-# Dockerfile setup and PostgreSQL DDL statements
+# 3. Dockerfile setup and PostgreSQL DDL statements
 1. Install tool: Docker Desktop
 2. Install tool: pgAdmin 4
 3. Create the following files:
@@ -107,7 +107,7 @@ docker-compose up -d --build
 ### 4. Table descriptions are indicated accordingly.
 ### 5. Column descriptions are indicated accordingly.
 
-# Addressing Analyst Queries
+# 4. Addressing Analyst Queries
 ## Q1. Top 3 items that are frequently bought by members
 ~~~~sql
 --Which are the top 3 items that are frequently brought by members ?
