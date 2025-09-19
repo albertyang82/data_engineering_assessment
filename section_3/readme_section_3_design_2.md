@@ -16,18 +16,12 @@ I, as a team lead, will design cloud architecture focusing on strategic facilita
 
 I propose a secure, scalable, and cost-efficient cloud architecture for ingesting and processing images from two sources (web/API uploads and an engineer-managed Kafka stream). The solution stores images and metadata for 7 days, after which they are automatically purged to meet compliance and privacy requirements. Processed metadata is available to BI and analytics tools for near-real-time insights. The design emphasizes least privilege access, encryption in transit and at rest, autoscaling processing, and operational observability.
 
-### Key benefits:
+### Key requirements:
 - Meets 7-day retention/purge compliance.
 - Scales automatically to demand with cost controls (spot instances / serverless).
 - Provides analysts secure, read-only access to metadata and aggregates.
 - Keeps raw binary transfer efficient (direct-to-object-storage uploads).
 - Supports existing engineering responsibilities for Kafka and processing code.
-
-### Role and Responsibilities:
-- Executives / Product: Validate retention policy and business KPIs; approve budget tradeoffs for HA vs. cost.
-- Engineers (Platform / Kafka / Processing): Manage MSK/consumer groups, container images, CI/CD, autoscaling policies.
-- Analytics: Query metadata/aggregates via BI tools (read-only). Request derived datasets/ETL jobs via data team.
-- Security & Compliance: Oversee key management, access policies, retention enforcement, and audits.
 
 ### Initial Planning & Requirements Gathering  
 I begin by clearly defining the project's goals. This involves working with stakeholders to understand the business needs, performance expectations, and any compliance or security constraints. I document these detailed requirements, as they will serve as the foundation for the entire design process. This is also where I will help the team to choose a cloud provider (like AWS, Azure, or Google Cloud) based on their specific features, pricing, and suitability for the project. The decision of which provider to use is a crucial early step that will influence the entire architecture.
