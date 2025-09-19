@@ -48,14 +48,14 @@ This approach:
 - [Security and Best Practices Addressed in this solution](#best-practises)
 
 # Overview
-As a team lead, I will design cloud architecture focusing on strategic facilitator, guiding the team through the process of creating a solution that is scalable, secure, and cost-effective. Their primary responsibilities include defining the project's scope, coordinating the team's efforts, and ensuring the final design aligns with the organization's business goals and technical requirements.
+I, as a team lead, will design cloud architecture focusing on strategic facilitator, guiding the team through the process of creating a solution that is scalable, secure, and cost-effective. Their primary responsibilities include defining the project's scope, coordinating the team's efforts, and ensuring the final design aligns with the organization's business goals and technical requirements.
 
 **Initial Planning & Requirements Gathering**
 I begin by clearly defining the project's goals. This involves working with stakeholders to understand the business needs, performance expectations, and any compliance or security constraints. I document these detailed requirements, as they will serve as the foundation for the entire design process. This is also where I will help the team to choose a cloud provider (like AWS, Azure, or Google Cloud) based on their specific features, pricing, and suitability for the project. The decision of which provider to use is a crucial early step that will influence the entire architecture.
 
 **Architectural Design & Decision Making**
 Once the requirements are set, I shifts to guiding the team through the actual design of the architecture. This involves several key decisions:
-- Service Selection: The team lead will facilitate discussions to choose the appropriate cloud services. This might include selecting services for compute (EC2, Lambda), storage (S3, EBS), databases (RDS, DynamoDB), and networking (VPC, Route 53). The team lead should encourage the team to explore various options and weigh their pros and cons.
+- Service Selection: I, as team lead will facilitate discussions to choose the appropriate cloud services. This might include selecting services for compute (EC2, Lambda), storage (S3, EBS), databases (RDS, DynamoDB), and networking (VPC, Route 53). I encourage the team to explore various options and weigh their pros and cons.
 - Scalability & Resilience: I ensure the design incorporates principles of scalability and resilience. This means designing the system to handle increased load and to recover automatically from failures. I consider using features like auto-scaling groups and multi-region deployments to achieve this.
 - Security & Compliance: I ensure that security is baked into the architecture from the start, not added as an afterthought. This includes defining IAM policies, setting up network security groups, and implementing encryption for data at rest and in transit.
 - Cost Management: I guide the team in making cost-effective choices. This involves considering the pricing models of different services and designing an architecture that minimizes unnecessary costs without compromising performance or reliability.
@@ -90,8 +90,7 @@ After the design is finalized, I will oversee the implementation phase, assign t
 	- Amazon API Gateway:
 		- API Gateway as a secure entry point: This is its primary function—it acts as the "front door" for your API resources.
 		- Default payload limit is 10MB: AWS documentation confirms that the maximum payload size for requests sent through API Gateway (both REST and HTTP APIs) is a hard limit of 10 MB.
-		- Direct upload feasibility: Since the client-side file is limited to 10MB, it meets the exact payload limit of the API Gateway, meaning a direct upload is technically feasible without requiring workarounds like using S3 pre-signed URLs.
-	- AWS Lambda (Upload Handler): Validates image, stores metadata in DynamoDB. AWS Lambda function acts as a secure intermediary. Instead of handling the image data directly, which can be inefficient, it generates a pre-signed URL for an Amazon S3 bucket. This URL lets the client bypass API Gateway and Lambda's payload limits by securely uploading the image directly to S3, which is considered a best practice.
+	- AWS Lambda (Upload Handler): Validates image, stores metadata in DynamoDB. AWS Lambda function acts as a secure intermediary. 
 	- Amazon S3 (Raw Image Bucket): Stores uploaded images temporarily.
 
 2. Image processing from Kafka-based uploads
@@ -128,7 +127,7 @@ After the design is finalized, I will oversee the implementation phase, assign t
 	- AWS CloudFormation → A service that allows you to define and provision AWS infrastructure as code using templates, enabling automated, repeatable, and consistent deployments
 
 8. Maintenance
-	- Containerized processing code enables versioning and easy updates.
+	- Containerized processing code enables versioning and easy updates using CodeCommit.
 	- AWS CodePipeline (CI/CD) → A fully managed service that automates continuous integration and continuous delivery, streamlining application and infrastructure updates.
 
 9. Infrastructure provisioning	
@@ -153,6 +152,18 @@ After the design is finalized, I will oversee the implementation phase, assign t
 	- AWS KMS encrypts S3, Redshift, and SageMaker data.
 	- AWS CloudTrail enables auditing.
 	- RBAC for Redshift and restricted access for QuickSight & SageMaker.
+	- AWS best practice for securing data in transit is to encrypt all traffic. This ensures that data is unreadable even if it's intercepted as it moves across networks. 
+		- Encrypting External Traffic
+			When data moves between your users or on-premises environment and AWS, it travels over the public internet. This traffic must be encrypted.
+				- Use TLS/SSL: Always use Transport Layer Security (TLS), the successor to SSL, to secure client-to-server communications. AWS services like Elastic Load Balancing (ELB), API Gateway, and CloudFront seamlessly integrate with AWS Certificate Manager (ACM) to provision and manage free SSL/TLS certificates. This offloads the encryption and decryption work, ensuring a secure HTTPS connection.
+				- Secure Remote Access: For connecting to instances or managing infrastructure, use secure protocols like SSH (for EC2 instances) and AWS Systems Manager Session Manager which provides a secure, auditable, and browser-based shell without opening inbound ports.
+				- VPN and Direct Connect: For hybrid cloud setups, establish secure connections between your data center and AWS. A Site-to-Site VPN creates an encrypted tunnel over the internet, while a Direct Connect provides a private, dedicated network link. For maximum security, you can use a VPN over a Direct Connect connection.
+
+		- Encrypting Internal Traffic 🔒
+			It's also a best practice to encrypt data that stays within the AWS network, even between services in the same Virtual Private Cloud (VPC).
+			- VPC Endpoints and AWS PrivateLink: Use VPC Endpoints to create private connections to AWS services like S3 or DynamoDB from within your VPC. This ensures that traffic to those services doesn't leave the Amazon network, reducing exposure. AWS PrivateLink extends this concept, allowing you to create private connections to your own or third-party services.
+			- Service-Level Encryption: Most AWS services offer native support for encryption in transit. For example, you can configure Amazon RDS to enforce SSL/TLS for all database connections. Check the documentation for each service you use to enable this feature.
+			- Network Access Control: Use Security Groups and Network Access Control Lists (NACLs) to control inbound and outbound traffic at both the instance and subnet level. While they don't encrypt traffic, they are a critical component of a layered security strategy, acting as firewalls to restrict who and what can communicate with your resources
 
 2. Scaling
 	- AWS Lambda, DynamoDB, and SageMaker auto-scale on demand.
