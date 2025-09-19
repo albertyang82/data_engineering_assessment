@@ -3,9 +3,9 @@
 
 # Overview
 I, as technical lead, design a database access strategy that satisfies different team roles and their privileges. I’ll break this down and give a PostgreSQL-based approach with roles, privileges, and grants.
-A. [Define User Roles](#a-define-user-roles)
-B. [Role Creation](#b-role-creation)
-C. [Privilege Assignments](#c-privilege-assignments)
+A. [Define User Roles](#a-define-user-roles)  
+B. [Role Creation](#b-role-creation)  
+C. [Privilege Assignments](#c-privilege-assignments)  
 
 # A. Define User Roles
 
@@ -90,6 +90,8 @@ GRANT "ROLE_ANALYTICS" TO "USER_ANALYST";
 GRANT "ROLE_SALES" TO "USER_SALES";
 ~~~
 
+[Back to Top](#Overview)
+
 # C. Privilege Assignments
 
 1. Logistics
@@ -117,3 +119,5 @@ GRANT INSERT, UPDATE, DELETE ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
 -- Optionally: SELECT access to see items
 GRANT SELECT ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
 ~~~
+
+[Back to Top](#Overview)

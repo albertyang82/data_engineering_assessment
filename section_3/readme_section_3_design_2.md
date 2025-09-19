@@ -1,11 +1,11 @@
 # Section3: Design 2 (Architecture Design)
 ---
 # Table of Contents
-A. [Overview](#a-overview)
-B. [Assumptions](#b-assumptions)
-C. [Explanation on Architecture (End-to-End flow)](#c-explanation-on-architecture-end-to-end-flow)
-D. [AWS services used in this solution](#d-AWS-services-used-in-this-solution)
-E. [Security and Best Practices Addressed in this solution](#e-security-and-best-practices-addressed-in-this-solution)
+A. [Overview](#a-overview)  
+B. [Assumptions](#b-assumptions)  
+C. [Explanation on Architecture (End-to-End flow)](#c-explanation-on-architecture-end-to-end-flow)  
+D. [AWS services used in this solution](#d-AWS-services-used-in-this-solution)  
+E. [Security and Best Practices Addressed in this solution](#e-security-and-best-practices-addressed-in-this-solution)  
 
 # A. Overview
 I, as a team lead, will design cloud architecture focusing on strategic facilitator, guiding the team through the process of creating a solution that is scalable, secure, and cost-effective. Their primary responsibilities include defining the project's scope, coordinating the team's efforts, and ensuring the final design aligns with the organization's business goals and technical requirements.
@@ -104,6 +104,8 @@ After the design is finalized, I will oversee the implementation phase, assign t
 5. Amazon QuickSight: A cloud-based business intelligence service that enables users to create interactive dashboards, visualizations, and insights from their data.
 6. Amazon S3 (Simple Storage Service) bucket: A scalable, durable cloud storage container used to store and retrieve objects such as files, images, and backups.
 7. Amazon SageMaker: A fully managed service that enables developers and data scientists to build, train, and deploy machine learning models at scale
+
+[Back to Top](#table-of-contents)	
 
 # E. Security and Best Practices Addressed in this solution
 
