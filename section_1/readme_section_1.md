@@ -23,9 +23,9 @@ This document outlines the setup and function of a data pipeline. It describes h
 [Back to Top](#table-of-contents)	
 
 # 3. Solution
-The core of this solution is a Python script (section_1.ipynb) that reads, processes, and cleanses the input files. The output files are saved with a timestamp (YYYYMMDDHHMISS) appended to their names to prevent overwriting. For example:
-	- Successful files: output/success/<original_input_file>_success_YYYYMMDDHHMISS
-	- Failed files: output/fail/<original_input_file>_fail_YYYYMMDDHHMISS
+The core of this solution is a Python script (section_1.ipynb) that reads, processes, and cleanses the input files. The output files are saved with a timestamp (YYYYMMDDHHMISS) appended to their names to prevent overwriting. For example:  
+	- Successful files: output/success/<original_input_file>_success_YYYYMMDDHHMISS  
+	- Failed files: output/fail/<original_input_file>_fail_YYYYMMDDHHMISS  
 
 After a file is processed, it is automatically moved to the archive folder. This ensures the pipeline only processes new files dropped into the input folder.
 
