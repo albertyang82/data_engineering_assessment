@@ -1,11 +1,11 @@
 # Section3: Design 2 (Architecture Design)
 ---
 # Table of Contents
-- [Overview](#overview)
-- [Assumptions](#assumptions)
-- [Explanation on Architecture (End-to-End flow)](#explanation-on-architecture-end-to-end-flow)
-- [AWS-managed services used in this solution](#services)
-- [Security and Best Practices Addressed in this solution](#best-practises)
+A. [Overview](#a-overview)
+B. [Assumptions](#b-assumptions)
+C. [Explanation on Architecture (End-to-End flow)](#c-explanation-on-architecture-end-to-end-flow)
+D. [AWS services used in this solution](#d-AWS-services-used-in-this-solution)
+E. [Security and Best Practices Addressed in this solution](#e-security-and-best-practices-addressed-in-this-solution)
 
 # A. Overview
 I, as a team lead, will design cloud architecture focusing on strategic facilitator, guiding the team through the process of creating a solution that is scalable, secure, and cost-effective. Their primary responsibilities include defining the project's scope, coordinating the team's efforts, and ensuring the final design aligns with the organization's business goals and technical requirements.
@@ -95,7 +95,7 @@ After the design is finalized, I will oversee the implementation phase, assign t
 
 [Back to Top](#table-of-contents)
 
-# D. AWS-managed services used in this solution
+# D. AWS services used in this solution
 
 1. Amazon API Gateway: A fully managed service that enables developers to create, publish, secure, and monitor APIs at any scale.
 2. Apache Kafka: A distributed streaming platform that allows real-time publishing, storing, and processing of high-throughput event and message streams.

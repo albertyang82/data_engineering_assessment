@@ -3,13 +3,9 @@
 
 # Overview
 I, as technical lead, design a database access strategy that satisfies different team roles and their privileges. I’ll break this down and give a PostgreSQL-based approach with roles, privileges, and grants.
-- A. [Define User Roles](#a-define-user-roles)
-- [Role Creation](#role-creation)
-- [Privilege Assignments](#privilege-assignments)
-- [AWS-managed services used in this solution](#services)
-- [Security and Best Practices Addressed in this solution](#best-practises)
-
-
+A. [Define User Roles](#a-define-user-roles)
+B. [Role Creation](#b-role-creation)
+C. [Privilege Assignments](#c-privilege-assignments)
 
 # A. Define User Roles
 
@@ -50,7 +46,7 @@ This approach:
 
 [Back to Top](#Overview)
 
-# C. Role Creation
+# B. Role Creation
 
 ~~~sql
 -- ============
@@ -94,7 +90,7 @@ GRANT "ROLE_ANALYTICS" TO "USER_ANALYST";
 GRANT "ROLE_SALES" TO "USER_SALES";
 ~~~
 
-# D. Privilege Assignments
+# C. Privilege Assignments
 
 1. Logistics
 ~~~sql
