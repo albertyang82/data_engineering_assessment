@@ -44,7 +44,6 @@ After the design is finalized, I will oversee the implementation phase, assign t
 7. Traffic is moderate to high; need auto-scaling and cost-efficient storage.
 8. The client application restricts image uploads up to 10MB, aligning with API Gateway's payload limit.
 9. AWS Lambda restricts limits up to 15 minutes per execution and up to 10GB memory / 6 vCPUs.
-10. Terraform automates infrastructure provisioning, with its scripts stored and version-controlled in AWS CodeCommit.
 
 [Back to Top](#table-of-contents)
 
@@ -73,7 +72,7 @@ After the design is finalized, I will oversee the implementation phase, assign t
 4. Data Retention & Purging
 	- S3 Lifecycle Policies
 		- Automatically delete both raw and processed images after 7 days.
-		- DynamoDB TTL (Time-To-Live) for metadata to remove entries after 7 days.
+	- DynamoDB TTL (Time-To-Live) for metadata to remove entries after 7 days.
 		
 5. Analytics & Business Intelligence
 	- AWS Sagemaker / QuickSight
@@ -90,14 +89,11 @@ After the design is finalized, I will oversee the implementation phase, assign t
 7. Scalability & Reliability
 	- Amazon CloudWatch → A monitoring and observability service that collects and tracks metrics, logs, and events to provide real-time insights into AWS resources, applications, and infrastructure.
 	- AWS CloudTrail → A service that records, monitors, and audits all API calls and account activity across AWS environments to ensure security and compliance.
-	- AWS CloudFormation → A service that allows you to define and provision AWS infrastructure as code using templates, enabling automated, repeatable, and consistent deployments
-
+	
 8. Maintenance
 	- Containerized processing code enables versioning and easy updates using CodeCommit.
 	- AWS CodePipeline (CI/CD) → A fully managed service that automates continuous integration and continuous delivery, streamlining application and infrastructure updates.
-
-9. Infrastructure provisioning	
-	- Terraform automates infrastructure provisioning, with its scripts stored and version-controlled in AWS CodeCommit.
+	- AWS CloudFormation → A service that allows you to define and provision AWS infrastructure as code using templates, enabling automated, repeatable, and consistent deployments
 
 [Back to Top](#table-of-contents)
 
@@ -110,7 +106,7 @@ A phased rollout with clear owners, QA gates, and automation:
 - Create security baseline (KMS key policies, VPC overall network).
 
 <ins>**Phase 1 — Core Infra & Storage (2 weeks)**</ins>
-- IaC: Terraform/CloudFormation for object storage buckets, lifecycle rules, KMS, VPC endpoints.
+- IaC: CloudFormation for object storage buckets, lifecycle rules, KMS, VPC endpoints.
 - Create staging buckets and lifecycle policy (7 days).
 - Set up CI/CD skeleton.
 
@@ -180,9 +176,9 @@ A phased rollout with clear owners, QA gates, and automation:
 
 1. Secure access
 	- IAM roles & policies enforces least-privilege access.
-	- AWS KMS encrypts S3, Redshift, and SageMaker data.
+	- AWS KMS encrypts S3 and SageMaker data.
 	- AWS CloudTrail enables auditing.
-	- RBAC for Redshift and restricted access for QuickSight & SageMaker.
+	- Restricted access for QuickSight & SageMaker.
 	- AWS best practice for securing data in transit is to encrypt all traffic. This ensures that data is unreadable even if it's intercepted as it moves across networks. 
 		- Encrypting External Traffic
 			When data moves between your users or on-premises environment and AWS, it travels over the public internet. This traffic must be encrypted.
@@ -199,12 +195,10 @@ A phased rollout with clear owners, QA gates, and automation:
 2. Scaling
 	- AWS Lambda, DynamoDB, and SageMaker auto-scale on demand.
 	- Amazon MSK handles high-throughput workloads.
-	- Redshift Serverless adjusts resources dynamically.
 	
 3. Manageability
 	- Secure credentials via AWS Secrets Manager.
 	- Encryption keys managed by AWS KMS.
-	- Terraform used for IaC to ensure consistent provisioning.
 
 4. Maintenance 
 	- AWS CodePipeline automates CI/CD.
@@ -212,13 +206,13 @@ A phased rollout with clear owners, QA gates, and automation:
 	- Version control
 
 5.  High Availability (HA)
-	- MSK Multi-AZ deployment and Redshift Serverless.
+	- MSK Multi-AZ deployment.
 	- S3 durability and fault tolerance.
 	
 6. Cost Efficiency
 	- Serverless services minimize idle costs.
 	- S3 lifecycle policies optimize storage costs.
-	- Redshift Serverless and QuickSight pay-per-use pricing	
+	- QuickSight pay-per-use pricing	
 	- S3 storage class optimization
 	
 7.  Fault Tolerance & Disaster Recovery (DR)
