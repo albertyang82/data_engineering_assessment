@@ -217,14 +217,13 @@ A phased rollout with clear owners, QA gates, and automation:
 	
 7.  Fault Tolerance & Disaster Recovery (DR)
 	- MSK event replay and S3 versioning for recovery.
-	- DynamoDB PITR and Redshift snapshots enable rollback.	
+	- DynamoDB PITR enable rollback.	
 	- Multi-AZ deployments
 	- S3 replication optional
 	
 8. Low Latency
 	- Direct S3 ingestion.
 	- Event-driven Lambda triggers
-	- Regional deployment reduces network latency.
-	- Redshift Serverless optimizes queries dynamically.	
+	- Regional deployment reduces network latency.	
 	
 [Back to Top](#table-of-contents)	
