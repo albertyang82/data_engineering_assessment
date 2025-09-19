@@ -150,11 +150,11 @@ A phased rollout with clear owners, QA gates, and automation:
 [Back to Top](#table-of-contents)
 
 # 5. Suggested Roles and Ownership
-- Platform / Infra Lead: IaC, VPC, KMS, storage lifecycle rules.
+- Platform / Infra Lead: IaC, VPC, KMS, storage lifecycle rules, IAM policies.
 - Engineers: Manage data transfer scripting.
 - DevOps: Containerize and maintain processing code, CI/CD.
 - Business users: BI dashboards and SageMaker.
-- Security/Compliance: IAM policies, audit review, retention enforcement.
+- Product Manager: audit review, retention enforcement.
 
 [Back to Top](#table-of-contents)
 
