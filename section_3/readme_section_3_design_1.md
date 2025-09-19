@@ -1,9 +1,9 @@
 # Section3: Design 1
 ---
 
-# A. Overview
+# Overview
 I, as technical lead, design a database access strategy that satisfies different team roles and their privileges. I’ll break this down and give a PostgreSQL-based approach with roles, privileges, and grants.
-- [Define User Roles](#define-user-roles)
+- A. [Define User Roles](#a-define-user-roles)
 - [Role Creation](#role-creation)
 - [Privilege Assignments](#privilege-assignments)
 - [AWS-managed services used in this solution](#services)
@@ -11,7 +11,7 @@ I, as technical lead, design a database access strategy that satisfies different
 
 
 
-# B. Define User Roles
+# A. Define User Roles
 
 | Team      | Role Name        | Responsibilities                                                | Privileges Required                                                        |
 | --------- | ---------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------- |
@@ -47,6 +47,8 @@ This approach:
 - Protects raw data integrity.
 - Gives each team just enough permissions to do their jobs.
 - Provides views for Analytics so they don’t need direct table access.
+
+[Back to Top](#Overview)
 
 # C. Role Creation
 
