@@ -3,12 +3,12 @@
 
 # Overview
 This section covers the following deliverables:
-- [Membership](#membership)
+- [Membership Application Pipeline]
 - [Database Design with Entity Relationship Diagram](#database_design_with_entity_relationship_diagram)
 - [Dockerfile setup and PostgreSQL DDL statements](#dockerfile_setup_and_postgresql_ddl_statements)
 - [Addressing Analyst Queries](#addressing_analyst_queries)
 
-# Membership
+# Membership Application Pipeline
 Flow:
 1. Applications submitted → dropped into a cloud storage/input folder (e.g., input/).
 2. Processing job using Python:
