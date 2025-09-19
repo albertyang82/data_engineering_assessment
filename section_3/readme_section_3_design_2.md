@@ -180,17 +180,17 @@ A phased rollout with clear owners, QA gates, and automation:
 	- AWS CloudTrail enables auditing.
 	- Restricted access for QuickSight & SageMaker.
 	- AWS best practice for securing data in transit is to encrypt all traffic. This ensures that data is unreadable even if it's intercepted as it moves across networks. 
-		- Encrypting External Traffic
-			When data moves between your users or on-premises environment and AWS, it travels over the public internet. This traffic must be encrypted.
-				- Use TLS/SSL: Always use Transport Layer Security (TLS), the successor to SSL, to secure client-to-server communications. AWS services like Elastic Load Balancing (ELB), API Gateway, and CloudFront seamlessly integrate with AWS Certificate Manager (ACM) to provision and manage free SSL/TLS certificates. This offloads the encryption and decryption work, ensuring a secure HTTPS connection.
-				- Secure Remote Access: For connecting to instances or managing infrastructure, use secure protocols like SSH (for EC2 instances) and AWS Systems Manager Session Manager which provides a secure, auditable, and browser-based shell without opening inbound ports.
-				- VPN and Direct Connect: For hybrid cloud setups, establish secure connections between your data center and AWS. A Site-to-Site VPN creates an encrypted tunnel over the internet, while a Direct Connect provides a private, dedicated network link. For maximum security, you can use a VPN over a Direct Connect connection.
+		- Encrypting External Traffic  
+			When data moves between your users or on-premises environment and AWS, it travels over the public internet. This traffic must be encrypted.  
+				- Use TLS/SSL: Always use Transport Layer Security (TLS), the successor to SSL, to secure client-to-server communications. AWS services like Elastic Load Balancing (ELB), API Gateway, and CloudFront seamlessly integrate with AWS Certificate Manager (ACM) to provision and manage free SSL/TLS certificates. This offloads the encryption and decryption work, ensuring a secure HTTPS connection.  
+				- Secure Remote Access: For connecting to instances or managing infrastructure, use secure protocols like SSH (for EC2 instances) and AWS Systems Manager Session Manager which provides a secure, auditable, and browser-based shell without opening inbound ports.  
+				- VPN and Direct Connect: For hybrid cloud setups, establish secure connections between your data center and AWS. A Site-to-Site VPN creates an encrypted tunnel over the internet, while a Direct Connect provides a private, dedicated network link. For maximum security, you can use a VPN over a Direct Connect connection.  
 
-		- Encrypting Internal Traffic 🔒
-			It's also a best practice to encrypt data that stays within the AWS network, even between services in the same Virtual Private Cloud (VPC).
-			- VPC Endpoints and AWS PrivateLink: Use VPC Endpoints to create private connections to AWS services like S3 or DynamoDB from within your VPC. This ensures that traffic to those services doesn't leave the Amazon network, reducing exposure. AWS PrivateLink extends this concept, allowing you to create private connections to your own or third-party services.
+		- Encrypting Internal Traffic  
+			It's also a best practice to encrypt data that stays within the AWS network, even between services in the same Virtual Private Cloud (VPC).  
+			- VPC Endpoints and AWS PrivateLink: Use VPC Endpoints to create private connections to AWS services like S3 or DynamoDB from within your VPC. This ensures that traffic to those services doesn't leave the Amazon network, reducing exposure. AWS PrivateLink extends this concept, allowing you to create private connections to your own or third-party services.  
 			- Service-Level Encryption: Most AWS services offer native support for encryption in transit. For example, you can configure Amazon RDS to enforce SSL/TLS for all database connections. Check the documentation for each service you use to enable this feature.
-			- Network Access Control: Use Security Groups and Network Access Control Lists (NACLs) to control inbound and outbound traffic at both the instance and subnet level. While they don't encrypt traffic, they are a critical component of a layered security strategy, acting as firewalls to restrict who and what can communicate with your resources
+			- Network Access Control: Use Security Groups and Network Access Control Lists (NACLs) to control inbound and outbound traffic at both the instance and subnet level. While they don't encrypt traffic, they are a critical component of a layered security strategy, acting as firewalls to restrict who and what can communicate with your resources.  
 
 2. Scaling
 	- AWS Lambda, DynamoDB, and SageMaker auto-scale on demand.
