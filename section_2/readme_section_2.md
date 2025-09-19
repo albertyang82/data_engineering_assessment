@@ -9,19 +9,19 @@ This section covers the following deliverables:
 - [Addressing Analyst Queries](#addressing-analyst-queries)
 
 # Membership Application Pipeline
-Flow:
-1. Applications submitted → dropped into a cloud storage/input folder (e.g., input/).
-2. Processing job using Python:
+Recap of Section 1:
+1. Applications submitted and dropped the file into a cloud storage/input folder (e.g., input/) for processing.
+2. Engineers already implemented following logics using Python:
 	- Reads application file.
-	- Perform data validation.
+	- Perform data validation for mobile number, age, name and email.
 	- Determines Success or Fail application.
 	- Assigns Membership ID for successful applications.
-4. Routing:
-	- Success → stored in success/ location.
-	- Fail → stored in fail/ location with reject reason.
+4. Output:
+	- Successful applications → stored in success/ storage location.
+	- Failed applications → stored in fail/ storage location with reject reason.
 	- Archive -> stored processed file.
 5. Database Integration:
-	- Successful applications are loaded into the members table in PostgreSQL for transaction reference.
+	- Successful applications are loaded into the TB_MEMBERSHIP table in PostgreSQL for transaction reference.
 
 This ensures clean lineage and referenceability.
 
@@ -33,7 +33,8 @@ We need to design memberships, items, transactions, and transaction details.
 1. TB_MEMBERSHIP: created from successful applications.
 2. TB_ITEM: product catalog.
 3. TB_TRANSACTION: records purchases by members.
-4. TB_TRANSACTION_ITEM_MAPPING: captures items within each transaction (many-to-many resolution).
+4. TB_TRANSACTION_ITEM_MAPPING: mapping table that captures items within each transaction (many-to-many relationship).
+5. TB_REJECTED_APPLICATION: provides analysts with a dedicated record of all rejected applications. This eliminates the need for them to access S3, which may have restricted access for cloud administrators, thereby streamlining the analysis of rejection reasons.
 
 ![view here](ERD.png)
 
@@ -47,7 +48,39 @@ Refer to init.sql for DDL and Test data.
 3. Create the following files:
 - **`init.sql`** – This will contain the entire SQL script to initialize the database.
 - **`Dockerfile`** – This configuation defines how PostgreSQL is set up, by specifying user, password and database name.
+
+~~~dockerfile
+FROM postgres:latest
+
+# Set the default environment variables
+ENV POSTGRES_USER=user
+ENV POSTGRES_PASSWORD=admin123
+ENV POSTGRES_DB=ASSESSMENT
+
+# Copy initialization SQL script
+COPY init.sql /docker-entrypoint-initdb.d/
+~~~
+
 - **`docker-compose.yml`** – This yml file manage the PostgreSQL container that I will setup, by using the username, password, database name and database port.
+
+~~~yml
+services:
+  db:
+    build: .
+    container_name: container_assessment
+    image: image_assessment
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: ASSESSMENT
+    ports:
+      - "5433:5432"
+
+volumes:
+  pgdata:
+~~~
+
 4. Open the Docker Desktop terminal.
 5. Go to the project directory.
 6. Run the following command to start the container:
@@ -73,7 +106,7 @@ docker-compose up -d --build
 ### 5. Column descriptions are indicated accordingly.
 
 # Addressing Analyst Queries
-## Q1. Top 10 members by spending
+## Q1. Top 3 items that are frequently bought by members
 ~~~~sql
 --Which are the top 3 items that are frequently brought by members ?
 --We need to count total quantity purchased for each item across all transactions:
@@ -90,7 +123,7 @@ LIMIT 3;
 --Order descending and take the top 3 most frequently purchased items.
 ~~~~
 
-## Q2. Top 3 items that are frequently bought by members
+## Q2. Top 10 members by spending
 ~~~~sql
 -- Which are the top 10 members by spending ?
 -- We need to sum the total_price of all transactions per member and order by spending descending:

@@ -11,14 +11,19 @@ CREATE TABLE IF NOT EXISTS "ASSESSMENT"."TB_ITEM"
     "ITEM_NAME" VARCHAR(100) NOT NULL,
     "MANUFACTURER_NAME" VARCHAR(100),
     "COST_NO" NUMERIC(10,2) NOT NULL,
-    "WEIGHT_KG" NUMERIC(10,2) NOT NULL
+    "WEIGHT_KG" NUMERIC(10,2) NOT NULL,
+    -- Audit columns
+    "CREATED_DTTM" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "UPDATED_DTTM" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "CREATED_BY_ID_NO" INT NOT NULL,
+    "UPDATED_BY_ID_NO" INT NOT NULL
 );
 
 COMMENT ON TABLE "ASSESSMENT"."TB_ITEM"
-    IS 'Contains catalog of items listed for sale on the website';
+    IS 'Stores all items available for sale on the e-commerce platform.';
 
 COMMENT ON COLUMN "ASSESSMENT"."TB_ITEM"."ITEM_ID_NO"
-    IS 'Unique identifier for each item';
+    IS 'Primary key: unique identifier for each item.';
 
 COMMENT ON COLUMN "ASSESSMENT"."TB_ITEM"."ITEM_NAME"
     IS 'Name of the item';
@@ -31,9 +36,15 @@ COMMENT ON COLUMN "ASSESSMENT"."TB_ITEM"."COST_NO"
 
 COMMENT ON COLUMN "ASSESSMENT"."TB_ITEM"."WEIGHT_KG"
     IS 'Weight of one unit of the item (in kilograms)';
+	
+COMMENT ON COLUMN "ASSESSMENT"."TB_ITEM"."CREATED_DTTM" IS 'Timestamp when the record was created.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_ITEM"."UPDATED_DTTM" IS 'Timestamp when the record was last updated.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_ITEM"."CREATED_BY_ID_NO" IS 'Numeric ID of the user or process that created this record.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_ITEM"."UPDATED_BY_ID_NO" IS 'Numeric ID of the user or process that last updated this record.';	
 
-
+-- ================================
 -- Table: ASSESSMENT.TB_MEMBERSHIP
+-- ================================
 
 DROP TABLE IF EXISTS "ASSESSMENT"."TB_MEMBERSHIP" CASCADE;
 
@@ -42,10 +53,15 @@ CREATE TABLE IF NOT EXISTS "ASSESSMENT"."TB_MEMBERSHIP"
     "MEMBERSHIP_ID_TXT" VARCHAR(100) PRIMARY KEY,
     "FIRST_NAME" VARCHAR(100) NOT NULL,
     "LAST_NAME" VARCHAR(100),
+    "EMAIL_ADDR" VARCHAR(100) UNIQUE NOT NULL,	
+	"MOBILE_NO" VARCHAR(15) NOT NULL,
 	"BIRTH_DT" DATE NOT NULL,
-    "EMAIL_ADDR" VARCHAR(100) UNIQUE NOT NULL,
-	"JOIN_DT" DATE DEFAULT CURRENT_DATE,
-	"STATUS_CD" VARCHAR(1) CHECK ("STATUS_CD" IN ('A', 'I'))
+	"ABOVE_18_IND" BOOLEAN NOT NULL,
+    -- Audit columns
+    "CREATED_DTTM" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "UPDATED_DTTM" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "CREATED_BY_ID_NO" INT NOT NULL,
+    "UPDATED_BY_ID_NO" INT NOT NULL
 );
 
 COMMENT ON TABLE "ASSESSMENT"."TB_MEMBERSHIP"
@@ -63,13 +79,23 @@ COMMENT ON COLUMN "ASSESSMENT"."TB_MEMBERSHIP"."LAST_NAME"
 COMMENT ON COLUMN "ASSESSMENT"."TB_MEMBERSHIP"."EMAIL_ADDR"
     IS 'Unique email address of the member';
 	
-COMMENT ON COLUMN "ASSESSMENT"."TB_MEMBERSHIP"."JOIN_DT"
-    IS 'Date the member joined. Defaults to current date.';	
+COMMENT ON COLUMN "ASSESSMENT"."TB_MEMBERSHIP"."MOBILE_NO"
+    IS '8-digit mobile number of the member.';	
 	
-COMMENT ON COLUMN "ASSESSMENT"."TB_MEMBERSHIP"."STATUS_CD"
-    IS 'Membership status (A: active or I: inactive)';		
+COMMENT ON COLUMN "ASSESSMENT"."TB_MEMBERSHIP"."BIRTH_DT"
+    IS 'Date of birth of the member.';		
+	
+COMMENT ON COLUMN "ASSESSMENT"."TB_MEMBERSHIP"."ABOVE_18_IND"
+    IS 'Boolean flag indicating if member was at least 18 years old as of 1 Jan 2022.';	
 
+COMMENT ON COLUMN "ASSESSMENT"."TB_MEMBERSHIP"."CREATED_DTTM" IS 'Timestamp when the record was created.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_MEMBERSHIP"."UPDATED_DTTM" IS 'Timestamp when the record was last updated.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_MEMBERSHIP"."CREATED_BY_ID_NO" IS 'Numeric ID of the user or process that created this record.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_MEMBERSHIP"."UPDATED_BY_ID_NO" IS 'Numeric ID of the user or process that last updated this record.';
+	
+-- ================================
 -- Table: ASSESSMENT.TB_TRANSACTION
+-- ================================
 
 DROP TABLE IF EXISTS "ASSESSMENT"."TB_TRANSACTION" CASCADE;
 
@@ -80,6 +106,11 @@ CREATE TABLE IF NOT EXISTS "ASSESSMENT"."TB_TRANSACTION"
     "TOTAL_PRICE_NO" NUMERIC(12,2),
     "TOTAL_WEIGHT_KG" NUMERIC(12,2),
 	"TRANSACTION_DTTM" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -- Audit columns
+    "CREATED_DTTM" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "UPDATED_DTTM" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "CREATED_BY_ID_NO" INT NOT NULL,
+    "UPDATED_BY_ID_NO" INT NOT NULL,
     CONSTRAINT "FK_MEMBERSHIP_ID_TXT" FOREIGN KEY ("MEMBERSHIP_ID_TXT")
         REFERENCES "ASSESSMENT"."TB_MEMBERSHIP" ("MEMBERSHIP_ID_TXT") MATCH SIMPLE
         ON UPDATE NO ACTION
@@ -87,10 +118,10 @@ CREATE TABLE IF NOT EXISTS "ASSESSMENT"."TB_TRANSACTION"
 );
 
 COMMENT ON TABLE "ASSESSMENT"."TB_TRANSACTION"
-    IS 'Represents each purchase made by members';
+    IS 'Stores all purchase transactions made by members.';
 
 COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION"."TRANSACTION_ID_NO"
-    IS 'Unique identifier for each transaction';
+    IS 'Primary key: unique identifier for each transaction.';
 
 COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION"."MEMBERSHIP_ID_TXT"
     IS 'Links the transaction to the member who made it. References TB_MEMBERSHIP(MEMBERSHIP_ID_NO)';
@@ -103,9 +134,16 @@ COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION"."TOTAL_WEIGHT_KG"
 	
 COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION"."TRANSACTION_DTTM"
     IS 'Date and time when the transaction occurred. Defaults to current timestamp.';	
+
+COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION"."CREATED_DTTM" IS 'Timestamp when the record was created.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION"."UPDATED_DTTM" IS 'Timestamp when the record was last updated.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION"."CREATED_BY_ID_NO" IS 'Numeric ID of the user or process that created this record.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION"."UPDATED_BY_ID_NO" IS 'Numeric ID of the user or process that last updated this record.';
+
 	
-	
+-- =============================================
 -- Table: ASSESSMENT.TB_TRANSACTION_ITEM_MAPPING
+-- =============================================
 
 DROP TABLE IF EXISTS "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING" CASCADE;
 
@@ -114,7 +152,12 @@ CREATE TABLE IF NOT EXISTS "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING"
 	"TRANSACTION_ID_NO" INT NOT NULL,
     "ITEM_ID_NO" INT NOT NULL,
     "QUANTITY_NO" INT NOT NULL CHECK ("QUANTITY_NO" > 0),
-		CONSTRAINT "TB_TRANSACTION_ITEM_MAPPING_pkey" PRIMARY KEY ("TRANSACTION_ID_NO", "ITEM_ID_NO"),
+    -- Audit columns
+    "CREATED_DTTM" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "UPDATED_DTTM" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "CREATED_BY_ID_NO" INT NOT NULL,
+    "UPDATED_BY_ID_NO" INT NOT NULL,
+	CONSTRAINT "TB_TRANSACTION_ITEM_MAPPING_pkey" PRIMARY KEY ("TRANSACTION_ID_NO", "ITEM_ID_NO"),
     CONSTRAINT "fk_transaction" FOREIGN KEY ("TRANSACTION_ID_NO") 
         REFERENCES "ASSESSMENT"."TB_TRANSACTION" ("TRANSACTION_ID_NO")
         ON DELETE CASCADE,
@@ -135,157 +178,260 @@ COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING"."ITEM_ID_NO"
 COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING"."QUANTITY_NO"
     IS 'Number of units of the item bought in this transaction. Must be > 0.';	
 	
+COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING"."CREATED_DTTM" IS 'Timestamp when the record was created.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING"."UPDATED_DTTM" IS 'Timestamp when the record was last updated.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING"."CREATED_BY_ID_NO" IS 'Numeric ID of the user or process that created this record.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING"."UPDATED_BY_ID_NO" IS 'Numeric ID of the user or process that last updated this record.';	
+
+-- ==========================================
+-- Table: ASSESSMENT.TB_REJECTED_APPLICATION
+-- =========================================
+CREATE TABLE "ASSESSMENT"."TB_REJECTED_APPLICATION" (
+    "APPLICATION_ID_NO" SERIAL PRIMARY KEY,
+    "RAW_NAME" VARCHAR(255),        
+    "EMAIL_ADDR" VARCHAR(100),	
+    "MOBILE_NO" VARCHAR(15),
+	"BIRTH_DT" DATE,
+    "REJECT_REASON_TXT" TEXT NOT NULL,
+    -- Audit columns
+    "CREATED_DTTM" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "UPDATED_DTTM" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "CREATED_BY_ID_NO" INT NOT NULL,
+    "UPDATED_BY_ID_NO" INT NOT NULL
+);
+
+COMMENT ON TABLE "ASSESSMENT"."TB_REJECTED_APPLICATION" IS 'Stores all applications that failed validation, including reason for rejection.';
+
+COMMENT ON COLUMN "ASSESSMENT"."TB_REJECTED_APPLICATION"."APPLICATION_ID_NO" IS 'Unique surrogate key for the rejected application.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_REJECTED_APPLICATION"."RAW_NAME" IS 'Original raw name string submitted by applicant (may be empty or invalid).';
+COMMENT ON COLUMN "ASSESSMENT"."TB_REJECTED_APPLICATION"."EMAIL_ADDR" IS 'Email provided by applicant (may be invalid).';
+COMMENT ON COLUMN "ASSESSMENT"."TB_REJECTED_APPLICATION"."MOBILE_NO" IS 'Mobile number provided by applicant (may be invalid or missing).';
+COMMENT ON COLUMN "ASSESSMENT"."TB_REJECTED_APPLICATION"."BIRTH_DT" IS 'Birthday provided by applicant (may be invalid or NULL).';
+COMMENT ON COLUMN "ASSESSMENT"."TB_REJECTED_APPLICATION"."REJECT_REASON_TXT" IS 'Reason why the application was rejected (e.g., invalid email, underage, missing name).';
+COMMENT ON COLUMN "ASSESSMENT"."TB_REJECTED_APPLICATION"."CREATED_DTTM" IS 'Timestamp when the record was created.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_REJECTED_APPLICATION"."UPDATED_DTTM" IS 'Timestamp when the record was last updated.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_REJECTED_APPLICATION"."CREATED_BY_ID_NO" IS 'Numeric ID of the user or process that created this record.';
+COMMENT ON COLUMN "ASSESSMENT"."TB_REJECTED_APPLICATION"."UPDATED_BY_ID_NO" IS 'Numeric ID of the user or process that last updated this record.';
+
+	
 -- Test Data
 
 TRUNCATE TABLE "ASSESSMENT"."TB_MEMBERSHIP" CASCADE;
 
-INSERT INTO "ASSESSMENT"."TB_MEMBERSHIP" ("MEMBERSHIP_ID_TXT", "FIRST_NAME", "LAST_NAME", "EMAIL_ADDR", "BIRTH_DT", "STATUS_CD")
+INSERT INTO "ASSESSMENT"."TB_MEMBERSHIP" ("MEMBERSHIP_ID_TXT", "FIRST_NAME", "LAST_NAME", "EMAIL_ADDR", "MOBILE_NO", "BIRTH_DT", "ABOVE_18_IND", "CREATED_BY_ID_NO", "UPDATED_BY_ID_NO")
 VALUES
-('chong_1a2b3', 'Fiona', 'Chong', 'fiona.chong@example.com', '1988-02-14', 'A'),
-('tan_4c5d6', 'George', 'Tan', 'george.tan@example.com', '1991-06-21', 'A'),
-('lim_7e8f9', 'Hannah', 'Lim', 'hannah.lim@example.com', '1994-12-02', 'A'),
-('ng_a1b2c', 'Ivan', 'Ng', 'ivan.ng@example.com', '1987-09-11', 'I'),
-('lee_d3e4f', 'Jenny', 'Lee', 'jenny.lee@example.com', '1993-05-18', 'A'),
-('wong_f5g6h', 'Kevin', 'Wong', 'kevin.wong@example.com', '1990-07-30', 'A'),
-('tan_i7j8k', 'Laura', 'Tan', 'laura.tan@example.com', '1995-11-09', 'A'),
-('lim_l9m0n', 'Michael', 'Lim', 'michael.lim@example.com', '1989-04-22', 'I'),
-('chong_o1p2q', 'Nina', 'Chong', 'nina.chong@example.com', '1992-08-15', 'A'),
-('ng_r3s4t', 'Oscar', 'Ng', 'oscar.ng@example.com', '1986-03-05', 'A'),
-('lee_u5v6w', 'Paul', 'Lee', 'paul.lee@example.com', '1990-01-27', 'A'),
-('wong_x7y8z', 'Quinn', 'Wong', 'quinn.wong@example.com', '1993-10-12', 'A'),
-('tan_a9b0c', 'Rachel', 'Tan', 'rachel.tan@example.com', '1991-09-19', 'A'),
-('lim_d1e2f', 'Steven', 'Lim', 'steven.lim@example.com', '1988-06-07', 'I'),
-('chong_g3h4i', 'Tina', 'Chong', 'tina.chong@example.com', '1994-03-23', 'A'),
-('ng_j5k6l', 'Umar', 'Ng', 'umar.ng@example.com', '1987-12-01', 'A'),
-('lee_m7n8o', 'Vera', 'Lee', 'vera.lee@example.com', '1992-05-09', 'A'),
-('wong_p9q0r', 'Will', 'Wong', 'will.wong@example.com', '1990-08-28', 'A'),
-('tan_s1t2u', 'Xena', 'Tan', 'xena.tan@example.com', '1995-02-17', 'A'),
-('lim_v3w4x', 'Yusuf', 'Lim', 'yusuf.lim@example.com', '1989-11-03', 'I');
+('smith_a1b2c', 'John', 'Smith', 'john.smith@emailprovider.com', '91234567', '1990-05-15', TRUE, 1, 1),
+('lee_d3e4f', 'Alice', 'Lee', 'alice.lee@emailprovider.net', '92345678', '1985-09-20', TRUE, 1, 1),
+('tan_g7h8i', 'David', 'Tan', 'david.tan@emailprovider.com', '93456789', '2000-01-10', TRUE, 1, 1),
+('ong_j9k0l', 'Sarah', 'Ong', 'sarah.ong@emailprovider.net', '94567890', '1999-11-30', TRUE, 1, 1),
+('wong_m1n2o', 'Michael', 'Wong', 'michael.wong@emailprovider.com', '95678901', '1992-03-25', TRUE, 1, 1),
+('ng_p3q4r', 'Rachel', 'Ng', 'rachel.ng@emailprovider.net', '96789012', '1995-07-12', TRUE, 1, 1),
+('lim_s5t6u', 'Benjamin', 'Lim', 'ben.lim@emailprovider.com', '97890123', '1988-02-18', TRUE, 1, 1),
+('koh_v7w8x', 'Cheryl', 'Koh', 'cheryl.koh@emailprovider.net', '98901234', '1991-06-07', TRUE, 1, 1),
+('goh_y9z0a', 'Daniel', 'Goh', 'daniel.goh@emailprovider.com', '99012345', '1993-04-11', TRUE, 1, 1),
+('chan_b2c3d', 'Grace', 'Chan', 'grace.chan@emailprovider.net', '90123456', '1997-08-14', TRUE, 1, 1),
+('foo_e4f5g', 'Henry', 'Foo', 'henry.foo@emailprovider.com', '91239876', '1989-12-02', TRUE, 1, 1),
+('chua_h6i7j', 'Isabel', 'Chua', 'isabel.chua@emailprovider.net', '92348765', '1994-01-21', TRUE, 1, 1),
+('teo_k8l9m', 'Jason', 'Teo', 'jason.teo@emailprovider.com', '93457654', '1996-09-09', TRUE, 1, 1),
+('yap_n0o1p', 'Kelly', 'Yap', 'kelly.yap@emailprovider.net', '94566543', '1990-11-01', TRUE, 1, 1),
+('loh_q2r3s', 'Leon', 'Loh', 'leon.loh@emailprovider.com', '95675432', '1987-03-18', TRUE, 1, 1),
+('phua_t4u5v', 'Megan', 'Phua', 'megan.phua@emailprovider.net', '96784321', '1992-07-24', TRUE, 1, 1),
+('sim_w6x7y', 'Nicholas', 'Sim', 'nicholas.sim@emailprovider.com', '97893210', '1991-05-30', TRUE, 1, 1),
+('chia_z8a9b', 'Olivia', 'Chia', 'olivia.chia@emailprovider.net', '98902109', '1993-02-05', TRUE, 1, 1),
+('ang_c1d2e', 'Peter', 'Ang', 'peter.ang@emailprovider.com', '99011098', '1998-06-17', TRUE, 1, 1),
+('heng_f3g4h', 'Queenie', 'Heng', 'queenie.heng@emailprovider.net', '90120987', '1995-10-22', TRUE, 1, 1);
 
-INSERT INTO "ASSESSMENT"."TB_ITEM" ("ITEM_NAME", "MANUFACTURER_NAME", "COST_NO", "WEIGHT_KG")
-VALUES
-('Laptop', 'TechBrand', 1500.00, 2.50),
-('Smartphone', 'PhoneCorp', 900.00, 0.40),
-('Headphones', 'AudioMax', 120.00, 0.30),
-('Office Chair', 'FurniCo', 300.00, 12.00),
-('Coffee Machine', 'HomeBrew', 250.00, 5.00),
-('Tablet', 'TechBrand', 600.00, 0.80),
-('Gaming Mouse', 'GamerTech', 80.00, 0.15),
-('Keyboard', 'KeyMaster', 150.00, 1.20),
-('Monitor', 'ViewPro', 300.00, 4.50),
-('Desk Lamp', 'BrightLite', 45.00, 0.80),
-('External HDD', 'StoragePlus', 120.00, 0.25),
-('Webcam', 'CamVision', 70.00, 0.20),
-('Bluetooth Speaker', 'SoundMax', 90.00, 0.50),
-('Printer', 'PrintCo', 250.00, 8.00),
-('Router', 'NetLink', 130.00, 0.60),
-('Notebook', 'PaperWorks', 5.00, 0.50);
+TRUNCATE TABLE "ASSESSMENT"."TB_ITEM" CASCADE;
 
-INSERT INTO "ASSESSMENT"."TB_TRANSACTION" ("TRANSACTION_ID_NO", "MEMBERSHIP_ID_TXT", "TOTAL_PRICE_NO", "TOTAL_WEIGHT_KG", "TRANSACTION_DTTM")
+INSERT INTO "ASSESSMENT"."TB_ITEM" ("ITEM_NAME", "MANUFACTURER_NAME", "COST_NO", "WEIGHT_KG", "CREATED_BY_ID_NO", "UPDATED_BY_ID_NO")
 VALUES
-(1, 'chong_1a2b3', 1800.00, 6.50, '2025-09-06 10:00:00'),
-(2, 'tan_4c5d6', 980.00, 0.55, '2025-09-06 12:15:00'),
-(3, 'lim_7e8f9', 210.00, 0.80, '2025-09-07 09:30:00'),
-(4, 'ng_a1b2c', 300.00, 12.00, '2025-09-07 14:45:00'),
-(5, 'lee_d3e4f', 500.00, 13.00, '2025-09-08 11:20:00'),
-(6, 'wong_f5g6h', 750.00, 2.00, '2025-09-08 15:30:00'),
-(7, 'tan_i7j8k', 1020.00, 0.65, '2025-09-09 09:45:00'),
-(8, 'lim_l9m0n', 1500.00, 2.50, '2025-09-09 13:20:00'),
-(9, 'chong_o1p2q', 350.00, 5.80, '2025-09-10 10:10:00'),
-(10, 'ng_r3s4t', 200.00, 0.80, '2025-09-10 14:55:00'),
-(11, 'lee_u5v6w', 125.00, 0.80, '2025-09-11 11:30:00'),
-(12, 'wong_x7y8z', 340.00, 5.50, '2025-09-11 15:00:00'),
-(13, 'tan_a9b0c', 980.00, 0.55, '2025-09-12 09:15:00'),
-(14, 'lim_d1e2f', 550.00, 20.00, '2025-09-12 14:40:00'),
-(15, 'chong_g3h4i', 720.00, 1.10, '2025-09-13 10:25:00'),
-(16, 'ng_j5k6l', 1800.00, 6.50, '2025-09-13 13:50:00'),
-(17, 'lee_m7n8o', 195.00, 2.00, '2025-09-14 11:15:00'),
-(18, 'wong_p9q0r', 1020.00, 0.65, '2025-09-14 15:30:00'),
-(19, 'tan_s1t2u', 510.00, 13.50, '2025-09-15 09:50:00'),
-(20, 'lim_v3w4x', 1500.00, 2.50, '2025-09-15 14:10:00');
+('Laptop', 'TechCorp', 1200.00, 2.5, 1, 1),
+('Smartphone', 'MobileMakers', 800.00, 0.5, 1, 1),
+('Headphones', 'SoundWave', 150.00, 0.3, 1, 1),
+('Tablet', 'TechCorp', 600.00, 0.8, 1, 1),
+('Camera', 'PhotoPro', 1000.00, 1.2, 1, 1),
+('Monitor', 'ViewMax', 300.00, 4.0, 1, 1),
+('Keyboard', 'KeyPro', 100.00, 0.7, 1, 1),
+('Mouse', 'ClickTech', 50.00, 0.2, 1, 1),
+('Printer', 'PrintCo', 400.00, 6.0, 1, 1),
+('Speaker', 'SoundWave', 250.00, 2.0, 1, 1),
+('Router', 'NetLink', 120.00, 1.0, 1, 1),
+('External HDD', 'DataStore', 200.00, 0.5, 1, 1),
+('Power Bank', 'ChargeIt', 60.00, 0.4, 1, 1),
+('Smartwatch', 'TimeTech', 180.00, 0.3, 1, 1),
+('Drone', 'FlyHigh', 1500.00, 3.0, 1, 1),
+('Gaming Console', 'GameBox', 500.00, 2.8, 1, 1),
+('VR Headset', 'VisionNext', 700.00, 1.5, 1, 1),
+('Projector', 'ViewMax', 850.00, 3.2, 1, 1),
+('Mic', 'SoundWave', 120.00, 0.6, 1, 1),
+('SSD Drive', 'DataStore', 250.00, 0.4, 1, 1);
 
-INSERT INTO "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING" ("TRANSACTION_ID_NO", "ITEM_ID_NO", "QUANTITY_NO")
+TRUNCATE TABLE "ASSESSMENT"."TB_TRANSACTION" CASCADE;
+
+INSERT INTO "ASSESSMENT"."TB_TRANSACTION" ("MEMBERSHIP_ID_TXT", "TOTAL_PRICE_NO", "TOTAL_WEIGHT_KG", "CREATED_BY_ID_NO", "UPDATED_BY_ID_NO")
 VALUES
--- Transaction 1: Fiona Chong buys Laptop + Monitor
-(1, 1, 1), (1, 9, 1),
--- Transaction 2: George Tan buys Smartphone + Gaming Mouse
-(2, 2, 1), (2, 7, 1),
--- Transaction 3: Hannah Lim buys Headphones + Bluetooth Speaker
-(3, 3, 1), (3, 13, 1),
--- Transaction 4: Ivan Ng buys Office Chair
-(4, 4, 1),
--- Transaction 5: Jenny Lee buys Coffee Machine + Printer
-(5, 5, 1), (5, 14, 1),
--- Transaction 6: Kevin Wong buys Tablet + Keyboard
-(6, 6, 1), (6, 8, 1),
--- Transaction 7: Laura Tan buys Smartphone + External HDD
-(7, 2, 1), (7, 11, 1),
--- Transaction 8: Michael Lim buys Laptop
-(8, 1, 1),
--- Transaction 9: Nina Chong buys Monitor + Desk Lamp + Notebook
-(9, 9, 1), (9, 10, 1), (9, 16, 1),
--- Transaction 10: Oscar Ng buys Router + Webcam
-(10, 15, 1), (10, 12, 1),
--- Transaction 11: Paul Lee buys Headphones + Notebook
-(11, 3, 1), (11, 16, 1),
--- Transaction 12: Quinn Wong buys Coffee Machine + Bluetooth Speaker
-(12, 5, 1), (12, 13, 1),
--- Transaction 13: Rachel Tan buys Smartphone + Gaming Mouse
-(13, 2, 1), (13, 7, 1),
--- Transaction 14: Steven Lim buys Office Chair + Printer
-(14, 4, 1), (14, 14, 1),
--- Transaction 15: Tina Chong buys Tablet + Headphones
-(15, 6, 1), (15, 3, 1),
--- Transaction 16: Umar Ng buys Laptop + Monitor
-(16, 1, 1), (16, 9, 1),
--- Transaction 17: Vera Lee buys Keyboard + Desk Lamp
-(17, 8, 1), (17, 10, 1),
--- Transaction 18: Will Wong buys Smartphone + External HDD
-(18, 2, 1), (18, 11, 1),
--- Transaction 19: Xena Tan buys Coffee Machine + Printer + Notebook
-(19, 5, 1), (19, 14, 1), (19, 16, 1),
--- Transaction 20: Yusuf Lim buys Laptop
-(20, 1, 1);
+('smith_a1b2c', 1950.00, 3.3, 1, 1),
+('lee_d3e4f', 1600.00, 1.0, 1, 1),
+('tan_g7h8i', 2150.00, 3.0, 1, 1),
+('ong_j9k0l', 1200.00, 2.5, 1, 1),
+('wong_m1n2o', 2400.00, 3.6, 1, 1),
+('ng_p3q4r', 300.00, 4.0, 1, 1),
+('lim_s5t6u', 180.00, 0.6, 1, 1),
+('koh_v7w8x', 2200.00, 4.5, 1, 1),
+('goh_y9z0a', 400.00, 6.0, 1, 1),
+('chan_b2c3d', 250.00, 0.9, 1, 1),
+('foo_e4f5g', 500.00, 2.8, 1, 1),
+('chua_h6i7j', 700.00, 1.5, 1, 1),
+('teo_k8l9m', 1800.00, 2.0, 1, 1),
+('yap_n0o1p', 850.00, 3.2, 1, 1),
+('loh_q2r3s', 360.00, 1.0, 1, 1),
+('phua_t4u5v', 2500.00, 3.5, 1, 1),
+('sim_w6x7y', 200.00, 0.5, 1, 1),
+('chia_z8a9b', 950.00, 2.2, 1, 1),
+('ang_c1d2e', 3000.00, 4.2, 1, 1),
+('heng_f3g4h', 120.00, 0.6, 1, 1);
+
+TRUNCATE TABLE "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING" CASCADE;
+
+INSERT INTO "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING" ("TRANSACTION_ID_NO", "ITEM_ID_NO", "QUANTITY_NO", "CREATED_BY_ID_NO", "UPDATED_BY_ID_NO")
+VALUES
+-- Transaction 1
+(1, 1, 1, 1, 1),  -- Laptop
+(1, 3, 2, 1, 1),  -- Headphones
+
+-- Transaction 2
+(2, 2, 1, 1, 1),  -- Smartphone
+(2, 12, 1, 1, 1), -- External HDD
+
+-- Transaction 3
+(3, 1, 1, 1, 1),  -- Laptop
+(3, 4, 1, 1, 1),  -- Tablet
+(3, 3, 1, 1, 1),  -- Headphones
+
+-- Transaction 4
+(4, 5, 1, 1, 1),  -- Camera
+
+-- Transaction 5
+(5, 4, 2, 1, 1),  -- Tablets
+(5, 6, 1, 1, 1),  -- Monitor
+(5, 3, 1, 1, 1),  -- Headphones
+
+-- Transaction 6
+(6, 7, 1, 1, 1),  -- Keyboard
+(6, 8, 1, 1, 1),  -- Mouse
+
+-- Transaction 7
+(7, 9, 1, 1, 1),  -- Printer
+
+-- Transaction 8
+(8, 15, 1, 1, 1), -- Drone
+(8, 2, 1, 1, 1),  -- Smartphone
+
+-- Transaction 9
+(9, 10, 1, 1, 1), -- Speaker
+
+-- Transaction 10
+(10, 14, 1, 1, 1), -- Smartwatch
+
+-- Transaction 11
+(11, 16, 1, 1, 1), -- Gaming Console
+
+-- Transaction 12
+(12, 17, 1, 1, 1), -- VR Headset
+
+-- Transaction 13
+(13, 1, 1, 1, 1),  -- Laptop
+
+-- Transaction 14
+(14, 11, 1, 1, 1), -- Router
+
+-- Transaction 15
+(15, 18, 1, 1, 1), -- Projector
+
+-- Transaction 16
+(16, 19, 1, 1, 1), -- Mic
+
+-- Transaction 17
+(17, 20, 1, 1, 1), -- SSD Drive
+
+-- Transaction 18
+(18, 5, 1, 1, 1),  -- Camera
+
+-- Transaction 19
+(19, 2, 1, 1, 1),  -- Smartphone
+
+-- Transaction 20
+(20, 1, 1, 1, 1);  -- Laptop
+
+
+INSERT INTO "ASSESSMENT"."TB_REJECTED_APPLICATION" 
+("RAW_NAME", "EMAIL_ADDR", "MOBILE_NO", "BIRTH_DT", "REJECT_REASON_TXT", "CREATED_BY_ID_NO", "UPDATED_BY_ID_NO")
+VALUES
+('','noemail@emailprovider.com','9123456','2005-05-15','Missing name field',1,1),
+('Tom H','tom.h@gmail.com','92345678','2010-09-20','Invalid email domain',1,1),
+('Mary P','mary.p@emailprovider.net','1234567','2006-01-10','Invalid mobile number',1,1),
+(NULL,'john.doe@emailprovider.org','93456789','2004-11-30','Invalid email domain',1,1),
+('Anna W','anna.w@emailprovider.com','912345','2008-03-25','Invalid mobile number',1,1),
+('','no_name@emailprovider.net','9456789','2003-07-12','Missing name field',1,1),
+('Bob L','bob.l@othermail.com','96789012','2007-02-18','Invalid email domain',1,1),
+('','cheryl.koh@emailprovider.net','9789012','2011-06-07','Missing name field',1,1),
+('Daniel G','daniel.goh@gmail.com','9890123','2009-04-11','Invalid email domain',1,1),
+(NULL,'grace.chan@emailprovider.net','901234','2012-08-14','Missing name field',1,1),
+('Henry F','henry.foo@email.com','912398','2005-12-02','Invalid email domain',1,1),
+('Isabel C','isabel.chua@emailprovider.org','923487','2006-01-21','Invalid email domain',1,1),
+('Jason T','','934576','2008-09-09','Missing email field',1,1),
+('Kelly Y','kelly.yap@emailprovider.net','945665','2010-11-01','Invalid mobile number',1,1),
+('Leon L','leon.loh@email.com','956754','2004-03-18','Invalid email domain',1,1),
+('Megan P','','967843','2007-07-24','Missing email field',1,1),
+('Nicholas S','nicholas.sim@emailprovider.net','978932','2011-05-30','Invalid mobile number',1,1),
+('Olivia C','olivia.chia@email.com','989021','2009-02-05','Invalid email domain',1,1),
+('Peter A','','990110','2006-06-17','Missing email field',1,1),
+('Queenie H','queenie.heng@emailprovider.org','901209','2008-10-22','Invalid email domain',1,1);
+
 
 -- 	Create role TEAM_LOGISTICS
-DROP ROLE IF EXISTS "TEAM_LOGISTICS";
-CREATE ROLE "TEAM_LOGISTICS";
-
-COMMENT ON ROLE "TEAM_LOGISTICS" IS 'This role is for logistics team';
+DROP ROLE IF EXISTS "ROLE_LOGISTICS";
+CREATE ROLE "ROLE_LOGISTICS";
+COMMENT ON ROLE "ROLE_LOGISTICS" IS 'This role is for logistics team';
 
 -- 	Create role TEAM_ANALYTICS
-DROP ROLE IF EXISTS "TEAM_ANALYTICS";
-CREATE ROLE "TEAM_ANALYTICS";
-
-COMMENT ON ROLE "TEAM_ANALYTICS" IS 'This role is for analytics team';
+DROP ROLE IF EXISTS "ROLE_ANALYTICS";
+CREATE ROLE "ROLE_ANALYTICS";
+COMMENT ON ROLE "ROLE_ANALYTICS" IS 'This role is for analytics team';
 
 -- 	Create role TEAM_SALES
-DROP ROLE IF EXISTS "TEAM_SALES";
-CREATE ROLE "TEAM_SALES";
-
-COMMENT ON ROLE "TEAM_SALES" IS 'This role is for sales team';
+DROP ROLE IF EXISTS "ROLE_SALES";
+CREATE ROLE "ROLE_SALES";
+COMMENT ON ROLE "ROLE_SALES" IS 'This role is for sales team';
 
 -- Create user accounts for team members and assign roles
-DROP USER IF EXISTS "LOGISTIC_USER";
-CREATE USER "LOGISTIC_USER" WITH PASSWORD 'logistic_pass';
-GRANT "TEAM_LOGISTICS" TO "LOGISTIC_USER";
+DROP USER IF EXISTS "USER_LOGISTIC";
+CREATE USER "USER_LOGISTIC" WITH PASSWORD 'logistic_pass';
+GRANT "ROLE_LOGISTICS" TO "USER_LOGISTIC";
 
-DROP USER IF EXISTS "ANALYST_USER";
-CREATE USER "ANALYST_USER" WITH PASSWORD 'analyst_pass';
-GRANT "TEAM_ANALYTICS" TO "ANALYST_USER";
+DROP USER IF EXISTS "USER_ANALYST";
+CREATE USER "USER_ANALYST" WITH PASSWORD 'analyst_pass';
+GRANT "ROLE_ANALYTICS" TO "USER_ANALYST";
 
-DROP USER IF EXISTS "SALES_USER";
-CREATE USER "SALES_USER" WITH PASSWORD 'sales_pass';
-GRANT "TEAM_SALES" TO "SALES_USER";
+DROP USER IF EXISTS "USER_SALES";
+CREATE USER "USER_SALES" WITH PASSWORD 'sales_pass';
+GRANT "ROLE_SALES" TO "USER_SALES";
 
 -- PERMISSIONS
 
--- TEAM_LOGISTICS
-GRANT SELECT ON "ASSESSMENT"."TB_MEMBERSHIP", "ASSESSMENT"."TB_ITEM", "ASSESSMENT"."TB_TRANSACTION", "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING" TO "TEAM_LOGISTICS";
-GRANT UPDATE ("STATUS_CD") ON "ASSESSMENT"."TB_MEMBERSHIP" TO "TEAM_LOGISTICS";
+-- Logictics Team
+-- Allow Logistics to SELECT transactions and transaction_items
+GRANT SELECT ON "ASSESSMENT"."TB_TRANSACTION", "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING", "ASSESSMENT"."TB_ITEM" TO "ROLE_LOGISTICS";
 
--- Analytics (read-only)
-GRANT SELECT ON "ASSESSMENT"."TB_MEMBERSHIP", "ASSESSMENT"."TB_ITEM", "ASSESSMENT"."TB_ITEM", "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING" TO "TEAM_ANALYTICS";
+-- Allow Logistics to UPDATE transactions (e.g., mark completed)
+GRANT UPDATE ON "ASSESSMENT"."TB_TRANSACTION" TO "ROLE_LOGISTICS";
 
--- Sales (manage catalog only)
-GRANT SELECT, INSERT, UPDATE, DELETE ON "ASSESSMENT"."TB_ITEM" TO "TEAM_SALES";
+-- Analytics 
+-- Read-only access to all tables
+GRANT SELECT ON "ASSESSMENT"."TB_MEMBERSHIP", "ASSESSMENT"."TB_ITEM", "ASSESSMENT"."TB_TRANSACTION", "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING", "ASSESSMENT"."TB_REJECTED_APPLICATION" TO "ROLE_ANALYTICS";
+
+-- Sales 
+-- Manage items
+GRANT INSERT, UPDATE, DELETE ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
+-- Optionally: SELECT access to see items
+GRANT SELECT ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
