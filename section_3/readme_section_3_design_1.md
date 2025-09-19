@@ -3,12 +3,12 @@
 
 # Overview
 I, as technical lead, design a database access strategy that satisfies different team roles and their privileges. I’ll break this down and give a PostgreSQL-based approach with roles, privileges, and grants:  
-A. [Define User Roles](#a-define-user-roles)  
-B. [Role Creation](#b-role-creation)  
-C. [Privilege Assignments](#c-privilege-assignments)  
-D. [Security Considerations](#d-security-considerations)  
+1. [Define User Roles](#1-define-user-roles)  
+2. [Role Creation](#2-role-creation)  
+3. [Privilege Assignments](#3-privilege-assignments)  
+4. [Security Considerations](#4-security-considerations)  
 
-# A. Define User Roles
+# 1. Define User Roles
 
 | Team      | Role Name        | Responsibilities                                                | Privileges Required                                                        |
 | --------- | ---------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------- |
@@ -47,7 +47,7 @@ This approach:
 
 [Back to Top](#Overview)
 
-# B. Role Creation
+# 2. Role Creation
 
 ~~~sql
 -- ============
@@ -93,7 +93,7 @@ GRANT "ROLE_SALES" TO "USER_SALES";
 
 [Back to Top](#Overview)
 
-# C. Privilege Assignments
+# 3. Privilege Assignments
 
 1. Logistics
 ~~~sql
@@ -123,7 +123,7 @@ GRANT SELECT ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
 
 [Back to Top](#Overview)
 
-# D. Security Considerations
+# 4. Security Considerations
 1. Separate schemas for different tables.
 	- You can place different tables in schemas (e.g., app_data) and grant schema-level privileges.
 
