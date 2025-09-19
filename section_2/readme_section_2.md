@@ -3,10 +3,10 @@
 
 # Overview
 This section covers the following deliverables:
-- [Membership Application Pipeline]
-- [Database Design with Entity Relationship Diagram](#database_design_with_entity_relationship_diagram)
-- [Dockerfile setup and PostgreSQL DDL statements](#dockerfile_setup_and_postgresql_ddl_statements)
-- [Addressing Analyst Queries](#addressing_analyst_queries)
+- [Membership Application Pipeline](#membership-application-pipeline)
+- [Database Design with Entity Relationship Diagram](#database-design-with-entity-relationship-diagram)
+- [Dockerfile setup and PostgreSQL DDL statements](#dockerfile-setup-and-postgresql-ddl-statements)
+- [Addressing Analyst Queries](#addressing-analyst-queries)
 
 # Membership Application Pipeline
 Flow:
