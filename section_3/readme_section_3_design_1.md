@@ -2,18 +2,19 @@
 ---
 
 # Overview
-I, as technical lead, design a database access strategy that satisfies different team roles and their privileges. I’ll break this down and give a PostgreSQL-based approach with roles, privileges, and grants.
+I, as technical lead, design a database access strategy that satisfies different team roles and their privileges. I’ll break this down and give a PostgreSQL-based approach with roles, privileges, and grants:  
 A. [Define User Roles](#a-define-user-roles)  
 B. [Role Creation](#b-role-creation)  
 C. [Privilege Assignments](#c-privilege-assignments)  
+D. [Security Considerations](#d-security-considerations)  
 
 # A. Define User Roles
 
 | Team      | Role Name        | Responsibilities                                                | Privileges Required                                                        |
 | --------- | ---------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Logistics | `role_logistics` | - Query sales & item weights<br>- Update completed transactions | SELECT on `transactions` & `transaction_items`<br>UPDATE on `transactions` |
-| Analytics | `role_analytics` | - Analyze sales, items, and membership data                     | SELECT on all tables (read-only)                                           |
-| Sales     | `role_sales`     | - Add new items<br>- Remove old items                           | INSERT/DELETE/UPDATE on `items`                                            |
+| Logistics | `ROLE_LOGISTICS` | - Query sales & item weights<br>- Update completed transactions | SELECT on `transactions` & `transaction_items`<br>UPDATE on `transactions` |
+| Analytics | `ROLE_ANALYTICS` | - Analyze sales, items, and membership data                     | SELECT on all tables (read-only)                                           |
+| Sales     | `ROLE_SALES`     | - Add new items<br>- Remove old items                           | INSERT/DELETE/UPDATE on `items`                                            |
 
 
 1. Logistics Team
@@ -119,5 +120,17 @@ GRANT INSERT, UPDATE, DELETE ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
 -- Optionally: SELECT access to see items
 GRANT SELECT ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
 ~~~
+
+[Back to Top](#Overview)
+
+# D. Security Considerations
+1. Separate schemas for different tables.
+	- You can place different tables in schemas (e.g., app_data) and grant schema-level privileges.
+
+2. Row-level security (optional)
+	- If Logistics should only see transactions for certain regions or stores, you can enable RLS.
+
+3. Audit Tables
+	- Use triggers or audit tables to log updates, especially for Logistics and Sales teams.
 
 [Back to Top](#Overview)
