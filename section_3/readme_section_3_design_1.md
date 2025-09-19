@@ -1,0 +1,121 @@
+# Section3: Design 1
+---
+
+# A. Overview
+I, as technical lead, design a database access strategy that satisfies different team roles and their privileges. I’ll break this down and give a PostgreSQL-based approach with roles, privileges, and grants.
+- [Define User Roles](#define-user-roles)
+- [Role Creation](#role-creation)
+- [Privilege Assignments](#privilege-assignments)
+- [AWS-managed services used in this solution](#services)
+- [Security and Best Practices Addressed in this solution](#best-practises)
+
+
+
+# B. Define User Roles
+
+| Team      | Role Name        | Responsibilities                                                | Privileges Required                                                        |
+| --------- | ---------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Logistics | `role_logistics` | - Query sales & item weights<br>- Update completed transactions | SELECT on `transactions` & `transaction_items`<br>UPDATE on `transactions` |
+| Analytics | `role_analytics` | - Analyze sales, items, and membership data                     | SELECT on all tables (read-only)                                           |
+| Sales     | `role_sales`     | - Add new items<br>- Remove old items                           | INSERT/DELETE/UPDATE on `items`                                            |
+
+
+1. Logistics Team
+~~~sql
+-- Allow Logistics to SELECT transactions and transaction_items
+GRANT SELECT ON "ASSESSMENT"."TB_TRANSACTION", "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING", "ASSESSMENT"."TB_ITEM" TO "ROLE_LOGISTICS";
+
+-- Allow Logistics to UPDATE transactions (e.g., mark completed)
+GRANT UPDATE ON "ASSESSMENT"."TB_TRANSACTION" TO "ROLE_LOGISTICS";
+~~~
+
+2. Analytics Team
+~~~sql
+-- Read-only access to all tables
+GRANT SELECT ON "ASSESSMENT"."TB_MEMBERSHIP", "ASSESSMENT"."TB_ITEM", "ASSESSMENT"."TB_TRANSACTION", "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING", "ASSESSMENT"."TB_REJECTED_APPLICATION" TO "ROLE_ANALYTICS";
+~~~
+
+3. Sales Team
+~~~sql
+-- Manage items
+GRANT INSERT, UPDATE, DELETE ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
+-- Optionally: SELECT access to see items
+GRANT SELECT ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
+~~~
+
+This approach:
+- Protects raw data integrity.
+- Gives each team just enough permissions to do their jobs.
+- Provides views for Analytics so they don’t need direct table access.
+
+# C. Role Creation
+
+~~~sql
+-- ============
+-- Create roles
+-- ============
+
+-- Role Logistics
+DROP ROLE IF EXISTS "ROLE_LOGISTICS";
+CREATE ROLE "ROLE_LOGISTICS";
+COMMENT ON ROLE "ROLE_LOGISTICS" IS 'This role is for logistics team';
+
+-- Role Analytics
+DROP ROLE IF EXISTS "ROLE_ANALYTICS";
+CREATE ROLE "ROLE_ANALYTICS";
+COMMENT ON ROLE "ROLE_ANALYTICS" IS 'This role is for analytics team';
+
+-- Role Sales
+DROP ROLE IF EXISTS "ROLE_SALES";
+CREATE ROLE "ROLE_SALES";
+COMMENT ON ROLE "ROLE_SALES" IS 'This role is for sales team';
+
+-- ==========================
+-- Create users for each team
+-- ==========================
+
+-- Create user accounts for team members and assign roles
+DROP USER IF EXISTS "USER_LOGISTIC";
+CREATE USER "USER_LOGISTIC" WITH PASSWORD 'logistic_pass';
+
+DROP USER IF EXISTS "USER_ANALYST";
+CREATE USER "USER_ANALYST" WITH PASSWORD 'analyst_pass';
+
+DROP USER IF EXISTS "USER_SALES";
+CREATE USER "USER_SALES" WITH PASSWORD 'sales_pass';
+
+-- =====================
+-- Assign roles to users
+-- =====================
+GRANT "ROLE_LOGISTICS" TO "USER_LOGISTIC";
+GRANT "ROLE_ANALYTICS" TO "USER_ANALYST";
+GRANT "ROLE_SALES" TO "USER_SALES";
+~~~
+
+# D. Privilege Assignments
+
+1. Logistics
+~~~sql
+-- Logictics
+-- Allow Logistics to SELECT transactions and transaction_items
+GRANT SELECT ON "ASSESSMENT"."TB_TRANSACTION", "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING", "ASSESSMENT"."TB_ITEM" TO "ROLE_LOGISTICS";
+
+-- Allow Logistics to UPDATE transactions (e.g., mark completed)
+GRANT UPDATE ON "ASSESSMENT"."TB_TRANSACTION" TO "ROLE_LOGISTICS";
+~~~
+
+2. Analytics
+~~~sql
+-- Analytics 
+-- Read-only access to all tables
+GRANT SELECT ON "ASSESSMENT"."TB_MEMBERSHIP", "ASSESSMENT"."TB_ITEM", "ASSESSMENT"."TB_TRANSACTION", "ASSESSMENT"."TB_TRANSACTION_ITEM_MAPPING", "ASSESSMENT"."TB_REJECTED_APPLICATION" TO "ROLE_ANALYTICS";
+~~~
+
+3. Sales
+~~~sql
+-- Sales 
+-- Manage items
+GRANT INSERT, UPDATE, DELETE ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
+-- Optionally: SELECT access to see items
+GRANT SELECT ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
+~~~
