@@ -103,10 +103,10 @@ After the design is finalized, I will oversee the implementation phase, assign t
 
 # 4. Suggested Implementation Plan and Timeline
 
-A phased rollout with clear owners, QA gates, and automation:
+A phased rollout with clear owners, QA gates, and automation:  
 <ins>**Phase 0 — Prep (1 week)**</ins>
 - Finalize retention/compliance policy details and approvals.
-- Choose cloud provider and core services (S3, MSK, ECS, Aurora, etc.)
+- Choose cloud provider and core services
 - Create security baseline (KMS key policies, VPC overall network).
 
 <ins>**Phase 1 — Core Infra & Storage (2 weeks)**</ins>
@@ -115,7 +115,7 @@ A phased rollout with clear owners, QA gates, and automation:
 - Set up CI/CD skeleton.
 
 <ins>**Phase 2 — Ingestion Paths (2–3 weeks)**</ins>
-- Implement API Gateway + pre-signed upload flow; WAF rules.
+- Implement API Gateway + pre-signed upload flow.
 - Stand up MSK and sink connector to storage (or custom consumer).
 - Validate end-to-end ingestion to raw bucket.
 
