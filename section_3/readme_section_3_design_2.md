@@ -90,7 +90,7 @@ After the design is finalized, I will oversee the implementation phase, assign t
 		
 5. Analytics & Business Intelligence
 	- AWS Sagemaker / QuickSight
-		- Query processed images and metadata directly DynamoDB.
+		- Query processed images structured data and metadata from DynamoDB.
 		- Analysts access dashboards via AWS QuickSight.
 	- Optionally, Redshift if large-scale analytics is required.	
 	
