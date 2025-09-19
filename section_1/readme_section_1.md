@@ -2,9 +2,9 @@
 ---
 
 # Table of Contents
-A. [Overview](#a-overview)  
-B. [Assumptions](#b-assumptions)  
-C. [Solution](#c-solution)  
+1. [Overview](#1-overview)  
+2. [Assumptions](#2-assumptions)  
+3. [Solution](#3-solution)  
 
 # A. Overview
 This document outlines the setup and function of a data pipeline. It describes how the pipeline processes input files, cleanses the data, and then sorts the resulting records into "successful" and "failed" categories, which are then stored in designated output folders
@@ -36,7 +36,7 @@ The pipeline is scheduled to run hourly using AWS EventBridge. You can set this 
 1. Navigate to EventBridge > Scheduler > Schedules and click "Create schedule".
 2. Provide a schedule name, such as section_1.
 3. Select a recurring schedule and choose the cron-based schedule option.
-4. Enter the expression 0 * * ? * * for an hourly schedule.
+4. Enter the expression 0 * * * ? * for an hourly schedule.
 5. Set the Target Detail to "AWS Lambda" and select the appropriate Lambda function.
 6. Skip the remaining settings and click "Create schedule".	
 
