@@ -148,12 +148,16 @@ A phased rollout with clear owners, QA gates, and automation:
 
 <ins>**Total estimated time: ~8–11 weeks depending on team size and approvals.**</ins>
 
+[Back to Top](#table-of-contents)
+
 # 5. Suggested Roles and Ownership
 - Platform / Infra Lead: IaC, VPC, KMS, storage lifecycle rules.
 - Kafka Engineers: Manage Kafka topics, connectors, security.
 - Processing Team: Containerize and maintain processing code, CI/CD.
 - Data/Analytics: Glue catalog, dataset schemas, BI dashboards.
 - Security/Compliance: IAM policies, audit review, retention enforcement.
+
+[Back to Top](#table-of-contents)
 
 # 6. Risks and Mitigations
 - Risk: Accidental retention beyond 7 days due to snapshots/backups.
@@ -164,11 +168,15 @@ A phased rollout with clear owners, QA gates, and automation:
 	- Mitigation: Apply strict bucket policies, block public access, use VPC endpoints and access logs.
 - Risk: Kafka consumer lag causing processing backlog.
 	- Mitigation: Monitor consumer lag and scale consumers/partitions; use managed MSK for operational simplicity.
+	
+[Back to Top](#table-of-contents)
 
 # 7. Suggested High Level Cost Considerations
 - Primary costs: object storage (short retention reduces storage cost), compute for processing, managed Kafka, and DB.
 - Cost controls: delete in 7 days, use serverless DB or right-sized instances, use spot instances for batch-processing workers.
 - Monitor with cost alarms and tagging for allocation.
+
+[Back to Top](#table-of-contents)
 
 # 8. AWS services used in this solution
 
