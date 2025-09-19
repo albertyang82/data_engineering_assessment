@@ -1,12 +1,12 @@
 # Section2: Database
 ---
 
-## Overview
+# Overview
 This section covers the following deliverables:
-- [Membership Application Pipeline](#membership_application_pipiline)
+- [Membership Application Pipeline](#membership_application_pipeline)
 - [Database Design with Entity Relationship Diagram](#database_design_with_entity_relationship_diagram)
 - [Dockerfile setup and PostgreSQL DDL statements](#dockerfile_setup_and_postgresql_ddl_statements)
-- [Addressing Analyst queries](#addressing_analyst_queries)
+- [Addressing Analyst Queries](#addressing_analyst_queries)
 
 # Membership Application Pipeline
 Flow:
@@ -67,7 +67,7 @@ docker-compose up -d --build
 ### 4. Table descriptions are indicated accordingly.
 ### 5. Column descriptions are indicated accordingly.
 
-# Addressing Analyst queries
+# Addressing Analyst Queries
 ## Q1. Top 10 members by spending
 ~~~~sql
 --Which are the top 3 items that are frequently brought by members ?
