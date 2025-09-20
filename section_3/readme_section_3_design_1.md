@@ -101,7 +101,7 @@ GRANT SELECT ON "ASSESSMENT"."TB_ITEM" TO "ROLE_SALES";
 
 # 4. Security Considerations
 1. Separate schemas for different tables.
-	- You can place different tables in schemas (e.g., app_data) and grant schema-level privileges.
+	- I can place different tables in schemas (e.g., app_data) and grant schema-level privileges.
 
 2. Row-level security (optional)
 	- If Logistics should only see transactions for certain regions or stores, you can enable RLS.
